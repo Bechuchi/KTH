@@ -1,0 +1,92 @@
+package assignment2;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class Program {
+
+	public static void main(String[] args) throws FileNotFoundException
+	{
+		SymbolTable st = new SymbolTable();
+		int size = getWantedSize();
+		File file = getFile();
+
+		init(st, size, file);
+	}
+	
+	private static void init(SymbolTable st, int size, File file) throws FileNotFoundException
+	{
+	    
+	    setSymbolTable(st, size, file);
+	    //test();
+	    
+	    for(int i=0; i<st.getSize(); i++)
+	    {
+	    	System.out.println("Index " + i + ":\t" + st.keys[i] + "\t\t" + st.values[i]);
+	    }
+	    System.out.println("*************************************");
+	    System.out.println("Binary search ST");
+	    System.out.println("*************************************");
+	}
+
+	private static File getFile()
+	{
+		return new File("C:\\Users\\Admin\\Desktop\\text_big.txt");
+	}
+	
+	private static int getWantedSize()
+	{
+		//return 200;
+		return 1000;
+		//return 5000;
+		//return 10000;
+		//return 100000;
+		//return 1000000;
+	}
+	
+	private static void setSymbolTable(SymbolTable st, int size, File file) throws FileNotFoundException
+	{
+	    Scanner input = new Scanner(file);	
+		int count = 0;
+		long startTime = System.nanoTime();
+		
+		while (input.hasNext() && count < size)
+		{
+		     String word  = input.next().toLowerCase();
+		     st.Add(word);
+		     count = count + 1;
+		}
+		
+		long stopTime = System.nanoTime();
+		long executionTime = getExecutionTime(startTime, stopTime);
+		
+		Print("Execution time:\t" + executionTime + " ms");
+	}
+	
+	private static void test()
+	{
+		SymbolTable st = new SymbolTable();
+		st.Add("A");
+		st.Add("B");
+		st.Add("D");
+		st.Add("A");
+		st.Add("C");
+		
+		System.out.println(st.keys[0]);
+		System.out.println(st.keys[1]);
+		System.out.println(st.keys[2]);
+		System.out.println(st.keys[3]);
+		System.out.println(st.values[0]);
+	}
+
+	private static long getExecutionTime(long startTime, long stopTime)
+	{
+		return (stopTime - startTime)/1000000;
+	}
+	
+	private static void Print(String text)
+	{
+		System.out.println(text);
+		System.out.println();
+	}
+}

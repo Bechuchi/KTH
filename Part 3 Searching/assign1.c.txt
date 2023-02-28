@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    FILE *ft = fopen("text.txt", "r+");
+
+    int ch;
+
+    while ((ch = fgetc(ft)) != EOF)
+    {
+        if (!isalpha(ch))
+        {
+            fseek(ft, -1, SEEK_CUR);
+            fputc(' ',ft);
+            fseek(ft, 0, SEEK_CUR);
+        }
+    }
+}

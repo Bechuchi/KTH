@@ -1,0 +1,72 @@
+package assignment5;
+
+public class SequentialSearchST
+{
+	    private int countPairs = 0;           	
+	    private Element first;   
+	    private int countCollision = 0;
+
+	    private class Element
+	    {
+	        private String word;
+	        private int value;
+	        private Element next;
+
+	        public Element(String key, int val, Element next)
+	        {
+	            this.word  = key;
+	            this.value  = val;
+	            this.next = next;
+	        }
+	    }
+
+	    public int size() {
+	        return countPairs;
+	    }
+
+	    public boolean isEmpty() {
+	        return size() == 0;
+	    }
+
+	    public boolean contains(String key)
+	    {
+	    	return getValue(key) != 0;
+	    }
+
+	    public int getValue(String key)
+	    {
+	        for(Element element=first; element != null; element=element.next)
+	        {
+	            if(key.equals(element.word)) {
+	                return element.value;
+	            }
+	        }
+	        
+	        return 0;
+	    }
+
+	    public void add(String word)
+	    {
+	        for(Element element=first; element != null; element = element.next)
+	        {
+	            if (word.equals(element.word)) {
+	                element.value++;
+	                return;
+	            }
+	        }
+	        
+	        first = new Element(word, 1, first);
+	        countPairs++;
+	      
+	    }
+
+//	    public int getCountCollision()
+//	    {
+//	    	 for(Element element=first; element != null && element.next != null; element=element.next) {
+//	    		if(!(element.word.equals(element.next.word)) && (element.word.hashCode() == element.next.word.hashCode()))
+//	    				countCollision++;
+//	    	 }
+//	    	 
+//	    	 return countCollision;
+//	    }
+}

@@ -1,0 +1,92 @@
+package assignment5;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class Program
+{
+	public static void main(String[] args) throws FileNotFoundException
+	{
+		HashTable table = new HashTable();
+		int size = getWantedSize();
+		File file = getFile();
+
+		init(table, size, file);
+	}
+	
+	private static void init(HashTable table, int size, File file) throws FileNotFoundException
+	{
+		setHashTable(table, size, file);
+		interactWithUser(table);
+	}
+	
+	private static void setHashTable(HashTable table, int size, File file) throws FileNotFoundException
+	{
+	    Scanner input = new Scanner(file);	
+		int countWords = 0;
+		String word;
+		
+		while (input.hasNext() && countWords < size)
+		{
+		     word  = input.next().toLowerCase();
+		     table.add(word);
+		     countWords++;
+		}
+	}
+
+	private static File getFile()
+	{
+		return new File("C:\\Users\\Admin\\Desktop\\text.txt");
+	}
+
+	private static int getWantedSize()
+	{
+		//return 200;
+		return 1000;
+		//return 5000;
+		//return 10000;
+		//return 100000;
+		//return 1000000;
+	}
+	
+	private static void interactWithUser(HashTable table)
+	{
+		String searchWord;
+		boolean askAgain = false;
+		int count = 0;
+		
+		do {
+			searchWord = getUserInput();
+			count = table.get(searchWord);
+			print("Occurs:\t\t\t" + count + " times");
+			System.out.println();
+			askAgain = getIfWantsToRepeat();
+		} while (askAgain);
+	}
+	
+	private static String getUserInput()
+	{
+		print("Word to search for:\t");
+		Scanner in = new Scanner(System.in);
+		String answer = in.next();
+		
+		return answer;
+	}
+	
+	private static boolean getIfWantsToRepeat()
+	{
+		print("Another word?\t\t");
+		Scanner in = new Scanner(System.in);
+		String answer = in.next();
+		
+		if(answer.equals("Y"))
+			return true;
+		else
+			return false;
+	}
+	
+	private static void print(String text)
+	{
+		System.out.print(text);
+	}
+}

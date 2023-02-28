@@ -1,0 +1,98 @@
+package assignment3;
+
+/*
+ * @author Olivia Denbu Wilhelmsson
+ */
+public class BinarySearchTree
+{
+	private int countLeafs = 0;
+	public Leaf root;
+	
+	private class Leaf
+	{
+		String key;
+		int value;
+		Leaf left;
+		Leaf right;
+		
+		public Leaf(String key, int value)
+		{
+			this.key = key;
+			this.value = value;
+		}		
+	}
+	
+	public int getSize()
+	{
+		return countLeafs;
+	}
+	
+	public void insert(String currentKey, Leaf root)
+	{
+ 		if(countLeafs == 0) {
+ 			this.root = new Leaf(currentKey, 1);
+ 			countLeafs++;
+ 			return;
+ 		}
+		
+		int compare = compare(currentKey, root.key);
+		
+		if(compare < 0) {
+			if(root.left == null) {
+				root.left = new Leaf(currentKey, 1);
+				countLeafs++;
+				return;
+			} else {
+				insert(currentKey, root.left);
+			}
+		} else if(compare > 0) {
+			if(root.right == null) {
+				root.right = new Leaf(currentKey, 1);
+				countLeafs++;
+				return;
+			} else {
+				insert(currentKey, root.right);
+			}
+		} else {
+			root.value++;	
+		}
+	}
+
+	private int compare(String currentKey, String currentRoot)
+	{
+		if(currentKey.compareTo(currentRoot) < 0)
+			return -1;
+		else if(currentKey.compareTo(currentRoot) == 0)
+			return 0;
+		else
+			return 1;
+	}
+
+	private void inOrder(Leaf node)
+	{
+	    if(node == null) return;
+
+	    inOrder(node.left);
+	    System.out.println(node.key + "\t\t" + node.value);
+	    inOrder(node.right);
+	}
+
+	private void postOrder(Leaf node)
+	{
+		if(node == null) return;
+		
+		postOrder(node.right);
+		System.out.println(node.key + "\t\t" + node.value);
+		postOrder(node.left);
+	}
+
+	public void printAlphabeticOrder()
+	{
+		inOrder(root);
+	}
+	
+	public void printReversedOrder()
+	{
+		postOrder(root);
+	}
+}

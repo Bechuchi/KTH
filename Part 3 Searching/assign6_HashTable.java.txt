@@ -1,0 +1,57 @@
+package assignment5;
+
+public class HashTable
+{
+    private static final int INIT_CAPACITY = 4;
+    private int countPairs;                            
+    private int size = 1000;     
+    private int countCollisions = 0;
+    private SequentialSearchST[] chain;  
+	
+    public HashTable() {
+        this(INIT_CAPACITY);
+    } 
+    
+    public HashTable(int m)
+    {
+        this.size = m;
+        this.chain = (SequentialSearchST[]) new SequentialSearchST[m];
+        
+        for (int i = 0; i < m; i++)
+        	chain[i] = new SequentialSearchST();
+    } 
+    
+	private int getHash(String word)
+	{
+		return (word.hashCode() & 0x7fffffff) % size;
+	}
+
+	
+	public void add(String word)
+	{
+        int hash = getHash(word);
+        
+        if(!chain[hash].contains(word)) {
+        	countPairs++;
+        }
+        
+        chain[hash].add(word); 
+    } 
+	
+    public int get(String key)
+    {
+        if (key == null) throw new IllegalArgumentException("argument to get() is null");
+        int i = getHash(key);
+        int value = chain[i].getValue(key);
+        
+        return value;
+    } 
+
+//    public int getCountCollisions()
+//    {
+//    	for(int i=0; i<size; i++)
+//    		countCollisions = countCollisions + chain[i].getCountCollision();
+//    	
+//    	return countCollisions;
+//    }
+}
