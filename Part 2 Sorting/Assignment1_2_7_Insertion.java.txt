@@ -1,0 +1,128 @@
+package assignment_1;
+
+/**
+ *  The {@code Insertion} class provides methods for sorting an
+ *  array using insertion sort.
+
+ *  @author Olivia Denbu Wilhelmsson
+ *  @date Code has been generated: 20 september - 2021
+ */
+public class Insertion
+{
+	private int nrSwaps = 0;
+	private int nrInversions = 0;
+	private String inversions = new String();
+	
+    /**
+     * Rearranges the array in ascending order
+     * @param data the array to be sorted
+     */
+	public void sort(int[] data)
+	{		
+		for(int i=1; i<data.length; i++)
+		{
+			for (int j=i; j>0 && isLessThan(data[j], data[j-1]); j--)
+			{
+				swap(data, j, (j-1));
+				nrSwaps++;
+				print(data);
+			}			
+		}
+	}
+	
+	private boolean isLessThan(int firstValue, int secondValue)
+	{
+		if(firstValue < secondValue)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+    /**
+     * swaps data[lowIndex] and data[highIndex]
+     * @param data the array to be sorted
+     */
+	private void swap(int[] data, int highIndex, int lowIndex)
+	{
+		int tempStorage = data[highIndex];
+		
+		data[highIndex] = data[lowIndex];
+		data[lowIndex] = tempStorage;
+	}
+
+	//Returns nr of swaps
+	public int getSwaps()
+	{
+		return nrSwaps;
+	}
+	
+	/* Prints current content of the array
+	 * @param data array to print
+	 */
+ 	public void print(int[] data)
+	{
+		System.out.print("Content:\t\t");
+		
+		for(int i=0; i<data.length; i++)
+		{
+			System.out.print(data[i] + " ");
+		}
+		
+		System.out.println();
+	}
+ 	
+ /***********************************************************
+  * Functions for inversions
+  ***********************************************************/
+	
+ 	/*
+ 	 * Find all inversions of input array
+ 	 * @param data the array to examine
+ 	 */
+ 	public void setInversions(int[] data)
+	{
+		for(int i=0; i<data.length; i++)
+		{
+			for(int j=i+1; j<data.length; j++)
+			{
+				int current = data[i];
+				int next = data[j];
+				
+				if(isLessThan(current, next) == false)
+				{
+					String currentInversion = formatInversion(data, i, j);
+					appendInversion(currentInversion);
+					nrInversions++;
+				}
+			}
+		}
+	}
+	
+ 	//sets corrects text format of inversion
+	private String formatInversion(int[] data, int lowIndex, int highIndex)
+	{
+		String current = "([" + lowIndex + ", " + data[lowIndex] + "], " + "[" + highIndex + ", " + data[highIndex] + "])";
+		
+		return current;
+	}
+	
+	//appends a new inversion to the rest of the already found inversions
+	private void appendInversion(String current)
+	{
+		inversions = inversions.concat(current);
+	}
+
+	public int getNrInversions()
+	{
+		return nrInversions;
+	}
+	
+	public String getInversions()
+	{
+		return inversions;
+	}
+}

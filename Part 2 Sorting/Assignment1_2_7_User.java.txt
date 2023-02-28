@@ -1,0 +1,45 @@
+package assignment_1;
+
+import java.util.Scanner;
+
+public class User
+{
+ 	public int[] getInput()
+	{
+		int size = getSize();
+		int[] inputData = getData(size);
+		
+		return inputData;
+	}
+	
+	private static int getSize()
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Input size:\t");
+		
+		int size = Integer.parseInt(sc.next());
+		
+		return size;
+	}
+
+	private static int[] getData(int size)
+	{
+		Scanner sc = new Scanner(System.in);		
+		
+		int[] input = new int[size];
+		int currentInput = 0;
+		
+		System.out.println();
+		
+		for(int i=0; i<size; i++)
+		{
+			System.out.print("Element " + (i+1) + ":\t");
+			currentInput = Integer.parseInt(sc.next());
+			input[i] = currentInput; 
+		}
+
+		System.out.println();
+		
+		return input;
+	}
+}

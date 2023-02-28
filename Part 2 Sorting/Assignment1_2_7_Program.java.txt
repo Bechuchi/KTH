@@ -1,0 +1,57 @@
+/******************************************************************************
+ *  Compilation:  Program.java
+ *  Execution:
+ *  Dependencies: None
+ *  Data files:   None
+ *
+ *  Sorts a sequence of input integers so that all negative values are placed at the beginning of the output.
+ *
+ ******************************************************************************/
+package assignment_1;
+
+public class Program
+{
+	public static void main(String[] args)
+	{
+		Init();
+	}
+	
+	//Initialises the program
+	private static void Init()
+	{		
+		Insertion sort = new Insertion();
+		User user = new User();
+		Operation operation = new Operation();
+		
+		int[] data = user.getInput();
+	
+		sort.setInversions(data);
+		Print("Nr inversions:\t\t" + sort.getNrInversions());
+		Print("Inversions:\t\t" + sort.getInversions());
+		System.out.println();
+	
+		Print("Insertionsort\t\t");
+		long startTime = System.nanoTime();
+		sort.sort(data);
+		long stopTime = System.nanoTime();
+		System.out.println();
+		
+		Print("Nr of swaps:\t\t" + sort.getSwaps());
+		System.out.println();
+		
+		Print("Descending order\t\t");
+		int[] descendingData = operation.getDataDescending(sort, data);
+		sort.print(descendingData);
+		
+		long executionTime = (stopTime - startTime)/1000000; 			//ns --> ms
+		System.out.println("Execution time in nanoseconds: " + executionTime + " ms");
+	}
+
+	/* Prints text
+	 * @param text to print
+	 */
+	private static void Print(String text)
+	{
+		System.out.println(text);
+	}	
+}

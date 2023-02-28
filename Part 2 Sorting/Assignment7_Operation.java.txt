@@ -1,0 +1,30 @@
+package assignment_1;
+
+/**
+ *  The {@code Operation} class provides methods for sorting an
+ *  array in descending order.
+
+ *  @author Olivia Denbu Wilhelmsson
+ *  @date Code has been generated: 22 september - 2021
+ */
+public class Operation
+{
+	public int[] getDataDescending(Insertion insertion, int[] data)
+	{
+		changeSign(data);
+		insertion.sort(data);
+		changeSign(data);
+		
+		return data;
+	}
+	
+	private static int[] changeSign(int[] data)
+	{
+		for(int i=0; i<data.length; i++)
+		{
+			data[i] = data[i] * -1;
+		}
+		
+		return data;
+	}
+}
