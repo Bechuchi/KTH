@@ -93,7 +93,6 @@ public class Sale {
     private double updateRunningTotalInclVAT(double itmPrice, double itmVAT) {
         double priceToAdd = itmPrice * (1 + itmVAT / 100);
         runningTotalInclVAT = runningTotalInclVAT + priceToAdd;
-        notifyObservers();
 
         return runningTotalInclVAT;
     }
@@ -111,6 +110,7 @@ public class Sale {
         List<Item> collOfRecItms = recrdItms.getCollectionOfRecordedItems();
         setListOfBoughtItms(collOfRecItms);
         totalPriceInclVAT = runningTotalInclVAT;
+        notifyObservers();
 
         return totalPriceInclVAT;
     }
