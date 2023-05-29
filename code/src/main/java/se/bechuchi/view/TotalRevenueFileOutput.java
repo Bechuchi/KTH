@@ -1,12 +1,11 @@
 package se.bechuchi.view;
 
-import se.bechuchi.model.SaleObserver;
 import se.bechuchi.model.TemplateClass;
 
 /**
  * Responsible for logging information about total income to developers.
  */
-public class TotalRevenueFileOutput extends TemplateClass implements SaleObserver {
+public class TotalRevenueFileOutput extends TemplateClass {
     private FileLogger logger;
 
     /**

@@ -1,12 +1,11 @@
 package se.bechuchi.view;
 
-import se.bechuchi.model.SaleObserver;
 import se.bechuchi.model.TemplateClass;
 
 /**
  * Shows the total income of the process sale on the user interface.
  */
-public class TotalRevenvueView extends TemplateClass implements SaleObserver {
+public class TotalRevenvueView extends TemplateClass {
     @Override
     protected void doShowTotalIncome() throws Exception {
         System.out.println("Total income: \t$" + totalIncome);

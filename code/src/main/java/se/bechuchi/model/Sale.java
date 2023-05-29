@@ -168,5 +168,4 @@ public class Sale {
             observer.newSaleWasMade(totalPriceInclVAT);
         }
     }
-
 }

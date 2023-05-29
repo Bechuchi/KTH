@@ -7,10 +7,10 @@ package se.bechuchi.model;
  * also implements the SaleObserver interface and notifies the observers when
  * a new sale is made.
  */
-public abstract class TemplateClass {
+public abstract class TemplateClass implements SaleObserver {
     protected double totalIncome;
 
-    public final void newSaleWasMade(double priceOfTheSaleThatWasJustMade) {
+    public void newSaleWasMade(double priceOfTheSaleThatWasJustMade) {
         calculateTotalIncome(priceOfTheSaleThatWasJustMade);
         showTotalIncome();
     }
@@ -19,7 +19,7 @@ public abstract class TemplateClass {
         totalIncome += priceOfTheSale;
     }
 
-    private void showTotalIncome() {
+    private final void showTotalIncome() {
         try {
             doShowTotalIncome();
         } catch (Exception e) {
