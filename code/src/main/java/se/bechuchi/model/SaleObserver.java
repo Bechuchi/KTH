@@ -7,10 +7,10 @@ package se.bechuchi.model;
  */
 public interface SaleObserver {
     /**
-     * Takes the new running total as in input parameter in order to send out the
+     * Takes the new total income as in input parameter in order to send out the
      * correct data to all observers.
      * 
-     * @param running
+     * @param nwTotIncm Is the new value of the total income.
      */
-    void newTotalIncome(double running);
+    void newSaleWasMade(double nwTotIncm);
 }

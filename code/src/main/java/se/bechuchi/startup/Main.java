@@ -1,8 +1,5 @@
 package se.bechuchi.startup;
 
-import java.io.File;
-import java.util.zip.DataFormatException;
-
 import se.bechuchi.controller.Controller;
 import se.bechuchi.integration.AccountingService;
 import se.bechuchi.integration.DiscountService;

@@ -1,11 +1,12 @@
 package se.bechuchi.view;
 
 import se.bechuchi.model.SaleObserver;
+import se.bechuchi.model.TemplateClass;
 
 /**
  * Responsible for logging information about total income to developers.
  */
-public class TotalRevenueFileOutput implements SaleObserver {
+public class TotalRevenueFileOutput extends TemplateClass implements SaleObserver {
     private FileLogger logger;
 
     /**
@@ -17,12 +18,15 @@ public class TotalRevenueFileOutput implements SaleObserver {
         this.logger = logger;
     }
 
-    /**
-     * When a new value has been made on the total income this method handles what
-     * to do when that happends.
-     */
-    public void newTotalIncome(double totalIncome) {
+    @Override
+    protected void doShowTotalIncome() throws Exception {
         String text = "Total income: $" + totalIncome;
         logger.logTotalIncome(text);
+    }
+
+    @Override
+    protected void handleErrors(Exception e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'handleErrors'");
     }
 }

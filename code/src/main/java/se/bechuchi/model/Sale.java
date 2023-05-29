@@ -19,7 +19,7 @@ public class Sale {
     private InventoryService invServ;
     private AccountingService accServ;
     private Payment payment;
-    private List<SaleObserver> saleObservers = new ArrayList<>();
+    private List<TemplateClass> saleObservers = new ArrayList<>();
     private List<BoughtItemDTO> boghtItms = new ArrayList<>();
     private CollectionOfRecordedItems recrdItms;
     private double runningTotalInclVAT;
@@ -157,14 +157,16 @@ public class Sale {
      * @param ob1 First observer to add in the list of who should be notified.
      * @param ob2 Second observer to add in the list of who should be notified.
      */
-    public void addObserver(SaleObserver ob1, SaleObserver ob2) {
+
+    public void addObserver(TemplateClass ob1, TemplateClass ob2) {
         saleObservers.add(ob1);
         saleObservers.add(ob2);
     }
 
     private void notifyObservers() {
-        for (SaleObserver observer : saleObservers) {
-            observer.newTotalIncome(runningTotalInclVAT);
+        for (TemplateClass observer : saleObservers) {
+            observer.newSaleWasMade(totalPriceInclVAT);
         }
     }
+
 }

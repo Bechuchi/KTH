@@ -9,6 +9,7 @@ import se.bechuchi.integration.InventoryService;
 import se.bechuchi.integration.exception.DatabaseFailureException;
 import se.bechuchi.integration.exception.InvalidItemIdentifierException;
 import se.bechuchi.model.Sale;
+import se.bechuchi.model.TemplateClass;
 import se.bechuchi.model.disount.CustomerBehavior;
 import se.bechuchi.model.disount.Discount;
 import se.bechuchi.model.disount.ItemBehavior;
@@ -33,8 +34,8 @@ public class Controller {
     private InventoryService invServ;
     private AccountingService accServ;
     private DiscountService discServ;
-    private TotalRevenvueView totRevenViw;
-    private TotalRevenueFileOutput totRevenFleOtpt;
+    private TemplateClass totRevenViw;
+    private TemplateClass totRevenFleOtpt;
     private Sale sale;
 
     /**
