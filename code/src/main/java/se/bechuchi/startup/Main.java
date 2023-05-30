@@ -22,29 +22,13 @@ public class Main {
      * 
      * @param args Optinonal in parameters. In this program no indata is required.
      */
-    /*
-     * public static void main(String[] args) {
-     * FileLogger logger = new FileLogger();
-     * Controller contr = new Controller(InventoryService.getInstance(), new
-     * AccountingService(),
-     * new DiscountService(), new TotalRevenvueView(),
-     * new TotalRevenueFileOutput(logger));
-     * new View(contr, logger);
-     * }
-     */
 
     public static void main(String[] args) {
-        Inheritance customStack = new Inheritance();
-        customStack.printStackSize();
-        customStack.push(10);
-        customStack.push(20);
-
-        System.out.println("Is the stack empty? " + customStack.empty());
-        customStack.printStackSize();
-
-        Integer poppedElement = customStack.pop();
-        System.out.println("Popped element: " + poppedElement);
-
-        customStack.printStackSize();
+        FileLogger logger = new FileLogger();
+        Controller contr = new Controller(InventoryService.getInstance(), new AccountingService(),
+                new DiscountService(), new TotalRevenvueView(),
+                new TotalRevenueFileOutput(logger));
+        new View(contr, logger);
     }
+
 }
