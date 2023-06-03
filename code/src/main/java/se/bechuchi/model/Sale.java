@@ -90,14 +90,29 @@ public class Sale {
         return new RunningDisplayInformationDTO(itm, runningTotalInclVAT);
     }
 
-    private double updateRunningTotalInclVAT(double itmPrice, double itmVAT) {
+    /**
+     * Updates the running total for this sale. Its value had VAT included.
+     * 
+     * @param itmPrice Price of the item which is in the scanning process which
+     *                 should be added to the running total.
+     * @param itmVAT   VAT value of the item which is in the scanning process which
+     *                 is valuable for the calculations of the price of the item.
+     * @return The new updated value of the running total.
+     */
+    double updateRunningTotalInclVAT(double itmPrice, double itmVAT) {
         double priceToAdd = itmPrice * (1 + itmVAT / 100);
         runningTotalInclVAT = runningTotalInclVAT + priceToAdd;
 
         return runningTotalInclVAT;
     }
 
-    private void updateVATEntireSale(double VATToAdd) {
+    /**
+     * Updates the VAT value for the entire sale.
+     * 
+     * @param VATToAdd Current VAT value which should be added to the entire VAT
+     *                 value of the sale.
+     */
+    void updateVATEntireSale(double VATToAdd) {
         VATEntireSale = VATEntireSale + VATToAdd;
     }
 

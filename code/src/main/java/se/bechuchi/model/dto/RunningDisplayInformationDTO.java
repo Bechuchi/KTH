@@ -41,11 +41,4 @@ public final class RunningDisplayInformationDTO {
     public double getRunningTotal() {
         return runningTotal;
     }
-
-    /*
-     * public boolean equals(Object comparingObject) {
-     * return (item.getID() == ((DisplayInformationDTO)
-     * comparingObject).item.getID());
-     * }
-     */
 }

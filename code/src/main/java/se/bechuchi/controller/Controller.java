@@ -1,6 +1,5 @@
 package se.bechuchi.controller;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import se.bechuchi.integration.AccountingService;
@@ -10,13 +9,7 @@ import se.bechuchi.integration.exception.DatabaseFailureException;
 import se.bechuchi.integration.exception.InvalidItemIdentifierException;
 import se.bechuchi.model.Sale;
 import se.bechuchi.model.TemplateClass;
-import se.bechuchi.model.disount.CustomerBehavior;
-import se.bechuchi.model.disount.Discount;
-import se.bechuchi.model.disount.ItemBehavior;
-import se.bechuchi.model.disount.ItemQuantity;
-import se.bechuchi.model.disount.PremiumCustomer;
-import se.bechuchi.model.disount.RetireeCustomer;
-import se.bechuchi.model.disount.SpecificDiscount;
+import se.bechuchi.model.disount.*;
 import se.bechuchi.model.dto.BoughtItemDTO;
 import se.bechuchi.model.dto.ItemDTO;
 import se.bechuchi.model.dto.ReceiptDTO;

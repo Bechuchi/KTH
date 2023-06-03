@@ -1,7 +1,5 @@
 package se.bechuchi.model.disount;
 
-import java.util.List;
-
 import se.bechuchi.model.dto.BoughtItemDTO;
 
 /**

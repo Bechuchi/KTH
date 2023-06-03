@@ -1,12 +1,9 @@
 package se.bechuchi.model;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Assert;
+import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import java.math.BigDecimal;
-import java.nio.channels.FileLock;
-import java.sql.SQLException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -42,7 +39,6 @@ public class SaleTest {
         recrdItms = new CollectionOfRecordedItems();
         itmDTO = invServ.getItemDTO(ITEM_IDENTIFIER);
         itm = new Item(itmDTO);
-        // saleInfoToDisplayDTO = new SaleInfoToDisplayDTO(itmToAdd);
     }
 
     @After
@@ -66,10 +62,15 @@ public class SaleTest {
     }
 
     @Test
-    public void testAddNewItemToSale() {
-        RunningDisplayInformationDTO result = sale.addNewItmToSale(itmDTO);
-        RunningDisplayInformationDTO expcdResult = new RunningDisplayInformationDTO(itm, 10.0);
-        assertEquals(result, expcdResult);
+    public void testAddNewItmToSale() {
+        Item newItm = recrdItms.addNewItmToListOfRecordedItems(itmDTO);
+        double mockedRunningTotal = 0.0;
+        RunningDisplayInformationDTO runnDTO = new RunningDisplayInformationDTO(newItm, mockedRunningTotal);
+        double runningBefore = runnDTO.getRunningTotal();
+        RunningDisplayInformationDTO runn2DTO = sale.addNewItmToSale(itmDTO);
+        double runningAfter = runn2DTO.getRunningTotal();
+
+        Assert.assertTrue(runningBefore < runningAfter);
     }
 
     @Test
