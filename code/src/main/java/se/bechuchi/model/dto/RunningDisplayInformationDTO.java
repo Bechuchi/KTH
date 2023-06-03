@@ -20,7 +20,7 @@ public final class RunningDisplayInformationDTO {
      * @param runningTotal The running total of the sale which should be displayed.
      */
     public RunningDisplayInformationDTO(Item itm, double runningTotal) {
-        this.itmDescription = itm.getItmDescription();
+        this.itmDescription = itm.getFormattedItemDescription();
         this.runningTotal = runningTotal;
     }
 

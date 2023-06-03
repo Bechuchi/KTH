@@ -10,6 +10,11 @@ package se.bechuchi.model;
 public abstract class TemplateClass implements SaleObserver {
     protected double totalIncome;
 
+    /**
+     * Is used when a new sale has been registered and performs nesseccarities which
+     * should occur every time
+     * a new sale has been made.
+     */
     public void newSaleWasMade(double priceOfTheSaleThatWasJustMade) {
         calculateTotalIncome(priceOfTheSaleThatWasJustMade);
         showTotalIncome();

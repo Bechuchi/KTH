@@ -8,13 +8,13 @@ import se.bechuchi.model.dto.ItemDTO;
  * The collection of all items which have been registered to the sale are
  * processed here.
  */
-public class CollectionOfRecordedItems {
+class CollectionOfRecordedItems {
     private List<Item> recordedItems;
 
     /**
      * Creates a new instance of the collection of recorded items.
      */
-    public CollectionOfRecordedItems() {
+    CollectionOfRecordedItems() {
         this.recordedItems = new ArrayList<Item>();
     }
 
@@ -46,7 +46,7 @@ public class CollectionOfRecordedItems {
      *         quantity to it. Initially
      *         set to one.
      */
-    public Item addNewItmToListOfRecordedItems(ItemDTO itmDTO) {
+    Item addNewItmToListOfRecordedItems(ItemDTO itmDTO) {
         Item itm = new Item(itmDTO);
         recordedItems.add(itm);
 
@@ -69,7 +69,7 @@ public class CollectionOfRecordedItems {
      * 
      * @return The list of recorded items.
      */
-    public List<Item> getCollectionOfRecordedItems() {
+    List<Item> getCollectionOfRecordedItems() {
         return recordedItems;
     }
 

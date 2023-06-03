@@ -81,7 +81,7 @@ public class Item {
      * 
      * @return A concatination of how an item description should be printed.
      */
-    public String getItmDescription() {
+    public String getFormattedItemDescription() {
         return name + "\t\t$" + price + " * " + quantity;
     }
 
@@ -92,7 +92,7 @@ public class Item {
      * @param quantityToAdd The additional quantity to add into the currently stored
      *                      value of quantity.
      */
-    public void increaseSoldQuantity(int quantityToAdd) {
+    void increaseSoldQuantity(int quantityToAdd) {
         quantity = quantity + quantityToAdd;
     }
 }

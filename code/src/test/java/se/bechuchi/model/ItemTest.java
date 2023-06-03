@@ -41,7 +41,7 @@ public class ItemTest {
     public void testGetItemDescription() {
         itm.increaseSoldQuantity(3);
         String expectedDescription = itm.getName() + "\t\t$" + itm.getPrice() + " * " + itm.getQuantity();
-        String description = itm.getItmDescription();
+        String description = itm.getFormattedItemDescription();
 
         Assert.assertEquals(expectedDescription, description);
     }
