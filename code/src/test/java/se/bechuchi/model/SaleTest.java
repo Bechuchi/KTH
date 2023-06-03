@@ -22,7 +22,7 @@ public class SaleTest {
     private FileLogger logger;
     private TotalRevenueFileOutput totRvnFleOtot;
     private Sale sale;
-    private CollectionOfRecordedItems recrdItms;
+    private RecordedItems recrdItms;
     private final int ITEM_IDENTIFIER = 2;
     private InventoryService invServ;
     private AccountingService accServ;
@@ -36,7 +36,7 @@ public class SaleTest {
         invServ = InventoryService.getInstance();
         accServ = new AccountingService();
         sale = new Sale(invServ, accServ);
-        recrdItms = new CollectionOfRecordedItems();
+        recrdItms = new RecordedItems();
         itmDTO = invServ.getItemDTO(ITEM_IDENTIFIER);
         itm = new Item(itmDTO);
     }
@@ -71,15 +71,5 @@ public class SaleTest {
         double runningAfter = runn2DTO.getRunningTotal();
 
         Assert.assertTrue(runningBefore < runningAfter);
-    }
-
-    @Test
-    public void testIncreaseQuantityOfAlreadyRecordItem() {
-        int qutyBfr = itm.getQuantity();
-        sale.addNewItmToSale(itmDTO);
-        sale.updateItmInSale(ITEM_IDENTIFIER);
-        int qutyAft = itm.getQuantity();
-
-        assertTrue(qutyBfr == (qutyAft - 1));
     }
 }

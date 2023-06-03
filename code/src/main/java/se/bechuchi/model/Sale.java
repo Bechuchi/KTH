@@ -21,7 +21,7 @@ public class Sale {
     private Payment payment;
     private List<TemplateClass> saleObservers = new ArrayList<>();
     private List<BoughtItemDTO> boghtItms = new ArrayList<>();
-    private CollectionOfRecordedItems recrdItms;
+    private RecordedItems recrdItms;
     private double runningTotalInclVAT;
     private double totalPriceInclVAT;
     private double VATEntireSale;
@@ -33,7 +33,7 @@ public class Sale {
      * @param accServ Enables communication to the external accounting system.
      */
     public Sale(InventoryService invServ, AccountingService accServ) {
-        this.recrdItms = new CollectionOfRecordedItems();
+        this.recrdItms = new RecordedItems();
         this.invServ = invServ;
         this.accServ = accServ;
     }

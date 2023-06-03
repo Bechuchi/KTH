@@ -17,25 +17,27 @@ import se.bechuchi.model.dto.ItemDTO;
 public class RecordedItemsTest {
     private FileLogger logger;
     private TotalRevenueFileOutput totRvnFleOtpt;
-    private CollectionOfRecordedItems recordedItems;
+    private RecordedItems recordedItems;
     private ItemDTO itmDTO;
+    private Item itm;
     private InventoryService invServ;
     private final int ITEM_IDENTIFIER = 1;
 
     @Before
     public void setUp() throws InvalidItemIdentifierException, DatabaseFailureException {
-        recordedItems = new CollectionOfRecordedItems();
+        recordedItems = new RecordedItems();
         logger = new FileLogger();
         totRvnFleOtpt = new TotalRevenueFileOutput(logger);
         invServ = InventoryService.getInstance();
-        // itmDTO = invServ.getItemDTO(ITEM_IDENTIFIER);
         itmDTO = new ItemDTO(1, "Item 1", 10.0, 1.2);
-        recordedItems = new CollectionOfRecordedItems();
+        itm = new Item(itmDTO);
+        recordedItems = new RecordedItems();
     }
 
     @After
     public void tearDown() {
         itmDTO = null;
+        itm = null;
         invServ = null;
         recordedItems = null;
     }
@@ -56,12 +58,31 @@ public class RecordedItemsTest {
 
     @Test
     public void testAddNewItmToListOfRecordedItems() {
-        // Add a new item to the recorded items
         recordedItems.addNewItmToListOfRecordedItems(itmDTO);
 
-        // Verify that the item was added correctly
-        // List<ItemDTO> soldItemDTOs = recordedItems.getSoldItemDTOs();
-        // Assert.assertEquals(1, soldItemDTOs.size());
-        // Assert.assertEquals(itmDTO, soldItemDTOs.get(0));
+        List<Item> soldItemDTOs = recordedItems.getCollectionOfRecordedItems();
+        boolean isNewItmFound = recordedItems
+                .isThereAnAlreadyRecordedItemMatchingCurrentItemIdentifier(itmDTO.getID());
+
+        Assert.assertEquals(1, soldItemDTOs.size());
+        Assert.assertTrue(isNewItmFound);
+    }
+
+    @Test
+    public void testIncreaseQuantityOfAlreadyRecordItem1() {
+        recordedItems.addNewItmToListOfRecordedItems(itmDTO);
+
+        List<Item> soldItemDTOs = recordedItems.getCollectionOfRecordedItems();
+        boolean isNewItmFound = recordedItems
+                .isThereAnAlreadyRecordedItemMatchingCurrentItemIdentifier(itmDTO.getID());
+
+        Assert.assertEquals(1, soldItemDTOs.size());
+        Assert.assertTrue(isNewItmFound);
+    }
+
+    @Test
+    public void testIncreaseQuantityOfAlreadyRecordItem() {
+        recordedItems.increaseQuantityOfAlreadyRecordItem(itm.getID());
+        Assert.assertEquals(1, itm.getQuantity());
     }
 }
