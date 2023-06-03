@@ -25,11 +25,21 @@ public final class RunningDisplayInformationDTO {
     }
 
     /**
-     * Returns the text as a summary of the information which should be
-     * displayed to the cashier and the customer.
+     * Returns the item description of the item which has been scanned.
+     * 
+     * @return The item descrpition.
      */
-    public String getRunningDisplayInformation() {
-        return itmDescription + "\n" + "Running Total: \t$" + runningTotal;
+    public String getItemDescription() {
+        return itmDescription;
+    }
+
+    /**
+     * Returns the running total of the whole sale.
+     * 
+     * @return The current value of the running total.
+     */
+    public double getRunningTotal() {
+        return runningTotal;
     }
 
     /*

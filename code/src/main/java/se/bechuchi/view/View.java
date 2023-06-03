@@ -83,11 +83,9 @@ public class View {
     private void mockOneItemScan(int inputID) throws InvalidItemIdentifierException,
             DatabaseFailureException {
         RunningDisplayInformationDTO runnDispInfo = contr.scanItem(inputID);
-        printRunningDisplayInformation(runnDispInfo.getRunningDisplayInformation());
-    }
-
-    private void printRunningDisplayInformation(String text) {
-        System.out.println(text + "\n");
+        String itmDescription = runnDispInfo.getItemDescription();
+        double runningTotal = runnDispInfo.getRunningTotal();
+        System.out.println(itmDescription + "\n" + "Running Total: \t$" + runningTotal);
     }
 
     private void mockMultipleItemScanWithRepeatedItemIdentifier()

@@ -1,8 +1,8 @@
 InvalidItemIdentifierException
-Timestamp:	13:58:41
+Timestamp:	09:22:00
 Error message:	100 is an invalid item identifier.
 
 DatabaseFailureException
-Timestamp:	13:58:41
+Timestamp:	09:22:00
 Error message:	Could not establish connection to the external item database.
 

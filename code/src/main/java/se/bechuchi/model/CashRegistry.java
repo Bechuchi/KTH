@@ -4,7 +4,7 @@ package se.bechuchi.model;
  * Represents the cash registry and stores the amount of money present in the
  * stores cash registry.
  */
-public class CashRegistry {
+class CashRegistry {
     private double amountPaid;
     private double amountPresent;
 
@@ -16,7 +16,7 @@ public class CashRegistry {
      * 
      * @param amountPaid Amount paid by the customer in this sale.
      */
-    public CashRegistry(double amountPaid) {
+    CashRegistry(double amountPaid) {
         this.amountPaid = amountPaid;
         updateRegistry();
     }
