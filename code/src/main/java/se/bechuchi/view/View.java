@@ -86,6 +86,7 @@ public class View {
         String itmDescription = runnDispInfo.getItemDescription();
         double runningTotal = runnDispInfo.getRunningTotal();
         System.out.println(itmDescription + "\n" + "Running Total: \t$" + runningTotal);
+        System.out.println();
     }
 
     private void mockMultipleItemScanWithRepeatedItemIdentifier()
