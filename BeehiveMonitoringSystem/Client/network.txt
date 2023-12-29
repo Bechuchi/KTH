@@ -1,6 +1,9 @@
 #include <SoftwareSerial.h>
 
-
+/*
+ESP TX Pin 10 på Arduino (definerad till RX i SoftwareSerial)
+ESP RX Pin 11 på Arduino (definerad till TX i SoftwareSerial)
+*/
 SoftwareSerial esp8266(10, 11); // RX, TX
 
 void setup() {
