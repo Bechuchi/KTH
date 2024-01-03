@@ -1,42 +1,67 @@
+package controller;
+
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /*
  * Hanterar inkommande meddelanden och koordinera behandlingen av dem.
  */
 public class Controller {
-    public UDPListener udpListener;
+    final int port = 8080;
+    final InetAddress IPAddress;
 
-    public Controller() {
-        udpListener = new UDPListener();
-    }
-    
-    /*
-     * periodiskt kontrollerar om det har kommit inkommande data från Arduino-klienterna.
-     * Detta kan göras med en enkel loop som tittar på en specifik port och väntar på UDP-paket.
-     * Om det finns inkommande data, kan du hantera den enligt dina krav.
-     */
-    public void scanLocalArea() {
-        // Implementera kod för att lyssna på inkommande UDP-paket här och hantera dem
-        while(true) {
-
-            String incomingMessage = udpListener.collectIncomingMessage();
-
-            if (incomingMessage != NULL) {
-                IncomingMessageDTO incomingMessageDTO = formatIncomingMessage(incomingMessage);
-                // Register incoming weight to model and/or database, display in View
-                ResponseMessageDTO responseMessageDTO 
-            }
+    public Controller() throws UnknownHostException {
+        try {
+            IPAddress = InetAddress.getByName("server_ip_address");
+        } catch (UnknownHostException e) {
+            throw e;
         }
     }
 
-    private IncomingMessageDTO formatIncomingMessage(String incomingMessage) {
-        // Implementera formatering av inkommande meddelande till IncomingMessageDTO
-        // och returnera DTO-objektet.
-        return new IncomingMessageDTO();
+    /*
+     * Periodiskt kontrollerar om det har kommit inkommande data från
+     * Arduino-klienterna.
+     * Detta kan göras med en enkel loop som tittar på en specifik port och väntar
+     * på UDP-paket.
+     * Om det finns inkommande data, kan du hantera den enligt dina krav.
+     */
+    public void scanLocalArea() throws IOException {
+
+        // Step 1: Create a socket to listen at port 1234
+        DatagramSocket socket = new DatagramSocket(port, IPAddress);
+        byte[] dataBufferForReceivingData = new byte[65535];
+
+        DatagramPacket incomingPacket = null;
+
+        while (true) {
+            // Step 2: create a DatgramPacket to receive the data.
+            incomingPacket = new DatagramPacket(dataBufferForReceivingData, dataBufferForReceivingData.length);
+
+            // Step 3: revieve the data in byte buffer.
+            socket.receive(incomingPacket);
+            String clientMessage = getClientMessage(dataBufferForReceivingData).toString();
+            System.out.print("Client says: " + clientMessage);
+            // Clear the buffer after every message.
+            dataBufferForReceivingData = new byte[65535];
+        }
     }
 
-    public String clientCommunication(IncomingMessageDTO incomingMessageDTO) {
-        // Implementera logik för att hantera inkommande data från en specifik klient
-        // och generera ett utgående meddelande om det är nödvändigt.
-        return "Response to " + incomingMessageDTO.getIP() + ": " + incomingMessageDTO.getWeight();
+    private static StringBuilder getClientMessage(byte[] incomingBytes) {
+        if (incomingBytes == null) {
+            return null;
+        }
+
+        StringBuilder clientMessage = new StringBuilder();
+        int i = 0;
+
+        while (incomingBytes[i] != 0) {
+            clientMessage.append((char) incomingBytes[i]);
+            i++;
+        }
+
+        return clientMessage;
     }
 }

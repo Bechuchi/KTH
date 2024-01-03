@@ -1,3 +1,4 @@
+package model.dto;
 
 /*
  * IncomingMessageDTO-klass om du använder JSON-format för att skicka data från klienten till servern.
