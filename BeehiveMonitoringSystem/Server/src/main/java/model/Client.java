@@ -1,3 +1,5 @@
+package model;
+
 /*
  * En klass som representerar en ansluten Arduino-klient. Den kan innehålla information om klienten, som dess IP-adress och anslutningsstatus.
  */

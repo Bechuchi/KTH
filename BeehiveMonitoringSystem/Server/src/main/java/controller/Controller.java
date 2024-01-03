@@ -15,7 +15,7 @@ public class Controller {
 
     public Controller() throws UnknownHostException {
         try {
-            IPAddress = InetAddress.getByName("server_ip_address");
+            IPAddress = InetAddress.getByName("192.168.1.97");
         } catch (UnknownHostException e) {
             throw e;
         }
@@ -43,7 +43,7 @@ public class Controller {
             // Step 3: revieve the data in byte buffer.
             socket.receive(incomingPacket);
             String clientMessage = getClientMessage(dataBufferForReceivingData).toString();
-            System.out.print("Client says: " + clientMessage);
+            System.out.print("Client says: " + clientMessage + "\n");
             // Clear the buffer after every message.
             dataBufferForReceivingData = new byte[65535];
         }
