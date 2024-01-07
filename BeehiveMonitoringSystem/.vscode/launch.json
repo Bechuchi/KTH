@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ServerApplication",
+            "request": "launch",
+            "mainClass": "com.bechuchi.ServerApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "ServerApplication",
+            "request": "launch",
+            "mainClass": "com.bechuchi.ServerApplication",
+            "projectName": "beehive-monitoring-server"
+        },
+        {
+            "type": "java",
             "name": "Main",
             "request": "launch",
             "mainClass": "startup.Main",

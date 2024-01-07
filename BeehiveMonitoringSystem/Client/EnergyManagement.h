@@ -1,4 +1,4 @@
-#include "Arduino.h"
+/*#include "Arduino.h"
 #include <avr/sleep.h>
 #include <avr/power.h>
 #include <avr/wdt.h>
@@ -6,10 +6,10 @@
 #ifndef ENERGYMANAGEMENT_H
 #define ENERGYMANAGEMENT_H
 
-/*
- * The Arduino goes into sleep mode whenever the button is pressed.
- * In the same way it wakes up once the button is pressed again.
-*/
+
+The Arduino goes into sleep mode whenever the button is pressed.
+In the same way it wakes up once the button is pressed again.
+
 class EnergyManagement {
 public:
   EnergyManagement(int wakeUpPin, int ledPin);
@@ -36,4 +36,4 @@ private:
   static EnergyManagement* instance;
 };
 
-#endif
+#endif*/

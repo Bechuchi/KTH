@@ -1,4 +1,4 @@
-#include "EnergyManagement.h"
+/*#include "EnergyManagement.h"
 
 EnergyManagement* EnergyManagement::instance = nullptr;
 
@@ -49,4 +49,4 @@ bool EnergyManagement::getJustWokeUp() {
 
 void EnergyManagement::setJustWokeUp(bool status) {
     justWokeUp = status;
-}
+}*/
