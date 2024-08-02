@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Application",
+            "request": "launch",
+            "mainClass": "com.bechuchi.startup.Application",
+            "projectName": "server"
+        },
+        {
+            "type": "java",
+            "name": "Application",
+            "request": "launch",
+            "mainClass": "com.bechuchi.Application",
+            "projectName": "server"
+        },
+        {
+            "type": "java",
             "name": "ServerApplication",
             "request": "launch",
             "mainClass": "com.bechuchi.ServerApplication",

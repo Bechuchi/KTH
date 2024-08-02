@@ -1,7 +1,7 @@
 #include "MockedData.h"
 
 void MockedData::getJSONFormat(DynamicJsonDocument &doc) {
-    doc["IP Address: "] = "192.168.1.11";
+    doc["IP Address: "] = "192.168.1.15";
     doc["Weight: "] = getMockedWeightData();
     doc["Temperature: "] = getMockedTemperatureData();
     doc["Humidity: "] = getMockedHumidityData();
