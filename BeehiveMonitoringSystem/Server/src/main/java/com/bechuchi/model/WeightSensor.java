@@ -53,7 +53,7 @@ public class WeightSensor {
      * threshold is met.
      ***********************/
     protected void alertForHarvestPreparation() {
-        raiseAlert("Honey ready for harvest. Current weight: " + currentWeight);
+        raiseAlert("Honey ready for harvest. Current Weight: " + currentWeight);
     }
 
     /***************
