@@ -10,6 +10,7 @@
 
 //#define BATTERY_PIN D7  // The GPIO pin connected to the battery
 #define WAKE_UP_INTERVAL 5e6
+bool continueRunning = true;
 
 //####################
 //Memory Configurations
@@ -80,6 +81,10 @@ void setup() {
 }
 
 void loop() {
+    if(!continueRunning) {
+        return;
+    }
+
     randomSeed(analogRead(0));
     DynamicJsonDocument doc(1024);
     //mockedData.getJSONFormat(doc);
@@ -88,11 +93,28 @@ void loop() {
      // Serialisera JSON-dokumentet till en sträng
     char jsonBuffer[1024];
     serializeJson(doc, jsonBuffer);
-    Serial.println(jsonBuffer); // Skriv ut JSON-strängen för att verifiera innehållet
 
     udp.beginPacket(serverIP, serverPort);
     udp.write(jsonBuffer);
     udp.endPacket();
+
+    // Lyssna efter svar från servern
+    int packetSize = udp.parsePacket();
+    if (packetSize) {
+        // Läs paketet
+        int len = udp.read(jsonBuffer, 1024);
+        if (len > 0) {
+            jsonBuffer[len] = 0;  // Null-terminate string
+        }
+        Serial.print("Server Response: ");
+        Serial.println(jsonBuffer);
+        continueRunning = false;
+    }
+
+    delay(2000); // Vänta lite innan nästa sändning för att undvika att spammar nätverket
+}
+
+void readHX711Sensor() {
 }
 
 void readDHT11Sensor() {
