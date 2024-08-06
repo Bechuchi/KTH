@@ -8,8 +8,6 @@
 class MockedData {
 public:
   void getJSONFormat(DynamicJsonDocument &doc);
-
-private:
   float getMockedWeightData();
   float getMockedTemperatureData();
   float getMockedHumidityData();

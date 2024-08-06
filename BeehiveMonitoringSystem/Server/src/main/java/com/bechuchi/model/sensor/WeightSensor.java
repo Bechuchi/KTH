@@ -1,4 +1,4 @@
-package com.bechuchi.model;
+package com.bechuchi.model.sensor;
 
 /***********************
  * Weight Sensor Functions

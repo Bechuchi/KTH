@@ -1,4 +1,4 @@
-package com.bechuchi.model;
+package com.bechuchi.model.sensor;
 
 /************************************
  * Temperature/Humidity Sensor Functions
@@ -31,7 +31,7 @@ public class TemperatureHumiditySensor {
      ***********************/
     protected void monitorHiveConditions(SensorData sensorData) {
         // TemperatureHumidity.COMBINATIONVALUE = getClimateFromSensors();
-        currentTemperature = 36.2;
+        currentTemperature = 36.1;
         currentHumidity = 0.55;
 
         if (!isWithinOptimalRange())

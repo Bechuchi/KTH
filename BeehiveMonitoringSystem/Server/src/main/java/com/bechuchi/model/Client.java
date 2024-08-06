@@ -1,5 +1,7 @@
 package com.bechuchi.model;
 
+import com.bechuchi.model.sensor.SensorData;
+
 public class Client {
     private String IPAddress;
     private int ID;

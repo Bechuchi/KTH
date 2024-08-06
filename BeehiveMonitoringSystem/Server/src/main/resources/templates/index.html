@@ -1,22 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Honungsproduktion Diagram</title>
+    <title>Honey Production Diagram</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
 <canvas id="myChart" width="400" height="200"></canvas>
 
-<script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var months = /*[[${months}]]*/ ['Default Month']; // Fallback if not provided
+    var production = /*[[${production}]]*/ [0]; // Fallback if not provided
+
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['April', 'Maj', 'Juni', 'Juli', 'Augusti'],
+            labels: months,
             datasets: [{
                 label: 'Honungsproduktion (kg)',
-                data: [5, 25, 50, 85, 100], // Minskning i juni från 60 till 50 kg
+                data: production, // Använd dynamisk data här
                 backgroundColor: 'rgba(255, 206, 86, 0.2)',
                 borderColor: 'rgba(255, 206, 86, 1)',
                 borderWidth: 1
@@ -30,6 +34,7 @@
             }
         }
     });
+    /*]]>*/
 </script>
 
 </body>

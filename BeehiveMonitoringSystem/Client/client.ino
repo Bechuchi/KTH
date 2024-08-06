@@ -40,26 +40,13 @@ Bonezegei_DHT11 dht(14);
 
 void setup() { 
     Serial.begin(115200);
-    EEPROM.begin(512);
-  // write a 0 to all 512 bytes of the EEPROM
-  for (int i = 0; i < 512; i++) { EEPROM.write(i, 0); }
-
-  // turn the LED on when we're done
-  pinMode(13, OUTPUT);
-  digitalWrite(13, HIGH);
-  EEPROM.end();
-  Serial.println("Memory Cleared");
-
-    //########################
-    //Wi-Fi
     //pinMode(BATTERY_PIN, INPUT);
     delay(1000);
-
-    //if (digitalRead(BATTERY_PIN) == HIGH) {
-      //dht.begin();
-      
-      //##################################
-      /*WiFi.begin(ssid, password);
+    
+    /*if (digitalRead(BATTERY_PIN) == HIGH) {
+      dht.begin();
+      WiFi.begin(ssid, password);
+      WiFi.begin(ssid, password);
 
       while (WiFi.status() != WL_CONNECTED) {
           delay(500);
@@ -67,36 +54,60 @@ void setup() {
       }
 
       Serial.println(WiFi.localIP());
-      Serial.println("Ansluten till WiFi!");
+      Serial.println("Ansluten till WiFi");
       udp.begin(serverPort);
-      */
+    }*/
 
+    WiFi.begin(ssid, password);
 
-    //}
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+    }
+
+    Serial.println(WiFi.localIP());
+    Serial.println("Ansluten till WiFi");
+    udp.begin(serverPort);
+    //ESP.deepSleep(WAKE_UP_INTERVAL);
+
+    
+  // turn the LED on when we're done
+  /*pinMode(13, OUTPUT);
+  digitalWrite(13, HIGH);
+  EEPROM.end();
+  Serial.println("Memory Cleared");*/
     //ESP.deepSleep(WAKE_UP_INTERVAL);
 }
 
-
 void loop() {
-   
-   
-    //if(har energi), samla in sensor data, lagrar data, formattering av data
-    //skicka
-    /*randomSeed(analogRead(0));
+    randomSeed(analogRead(0));
     DynamicJsonDocument doc(1024);
-    mockedData.getJSONFormat(doc);
+    //mockedData.getJSONFormat(doc);
+    formatOutgoingDataPacket(doc);
+
+     // Serialisera JSON-dokumentet till en sträng
     char jsonBuffer[1024];
     serializeJson(doc, jsonBuffer);
+    Serial.println(jsonBuffer); // Skriv ut JSON-strängen för att verifiera innehållet
 
     udp.beginPacket(serverIP, serverPort);
     udp.write(jsonBuffer);
-    udp.endPacket();*/
+    udp.endPacket();
 }
- 
-/*
-if (dht.getData()) {                         // get All data from DHT11
-    float tempDeg = dht.getTemperature();      // return temperature in celsius
-    float tempFar = dht.getTemperature(true);  // return temperature in fahrenheit if true celsius of false
-    int hum = dht.getHumidity();               // return humidity
-    Serial.printf("Temperature: %0.1lf°C  %0.1lf°F Humidity:%d \n", tempDeg, tempFar, hum);
-*/
+
+void readDHT11Sensor() {
+    /*
+    if (dht.getData()) {                         // get All data from DHT11
+        float tempDeg = dht.getTemperature();      // return temperature in celsius
+        float tempFar = dht.getTemperature(true);  // return temperature in fahrenheit if true celsius of false
+        int hum = dht.getHumidity();               // return humidity
+        Serial.printf("Temperature: %0.1lf°C  %0.1lf°F Humidity:%d \n", tempDeg, tempFar, hum);
+    */
+}
+
+void formatOutgoingDataPacket(DynamicJsonDocument &doc) {
+    doc["IPaddress"] = WiFi.localIP().toString();  // Konverterar IP-adressen till en sträng
+    doc["Weight"] = "30 kg";
+    doc["Temperature"] = "35 degree";
+    doc["Humidity"] = "55%";
+}
