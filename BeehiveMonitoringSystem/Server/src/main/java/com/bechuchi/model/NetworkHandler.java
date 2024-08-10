@@ -27,4 +27,10 @@ public class NetworkHandler {
 
         return packet;
     }
+
+    public String jsonFormatter(DatagramPacket packet) {
+        String jsonData = new String(packet.getData(), 0, packet.getLength());
+
+        return jsonData;
+    }
 }

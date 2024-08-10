@@ -1,26 +1,40 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <title>Honey Production Diagram</title>
+    <title>Honey Production</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        #myChart {
+            max-width: 300px;
+            max-height: 200px;
+        }
+    </style>
 </head>
 <body>
+<div>Beehive: B42</div>
+<hr>
+<div style="display: flex;">
+    <canvas id="myChart" width="300" height="200"></canvas>
+    <ul style="border-left: 1px black solid; padding-left: 15px; display: flex; flex-direction: column; justify-content: space-between; margin: 40px 20px;">
+        <li style="font-family:Arial, Helvetica, sans-serif; font-size:8px; font-weight:700;">Current humidity: 0.55 %</li>
+        <li style="font-family:Arial, Helvetica, sans-serif; font-size:8px; font-weight:700;">Current temperature: 37 °C</li>
+        <li style="font-family:Arial, Helvetica, sans-serif; font-size:8px; font-weight:700;">Current weight: 44 kg</li>
+    </ul>
+</div>
 
-<canvas id="myChart" width="400" height="200"></canvas>
 
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    var months = /*[[${months}]]*/ ['Default Month']; // Fallback if not provided
-    var production = /*[[${production}]]*/ [0]; // Fallback if not provided
 
+</body>
+</html>
+<script>
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: months,
+            labels: ['Mars', 'April', 'May', 'June', 'July', 'August'],
             datasets: [{
                 label: 'Honungsproduktion (kg)',
-                data: production, // Använd dynamisk data här
+                data: [5, 8, 14, 22, 33, 44], // Minskning i juni från 60 till 50 kg
                 backgroundColor: 'rgba(255, 206, 86, 0.2)',
                 borderColor: 'rgba(255, 206, 86, 1)',
                 borderWidth: 1
@@ -29,13 +43,11 @@
         options: {
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    min: 0,
+                    max: 50,
                 }
             }
         }
     });
-    /*]]>*/
 </script>
-
-</body>
-</html>

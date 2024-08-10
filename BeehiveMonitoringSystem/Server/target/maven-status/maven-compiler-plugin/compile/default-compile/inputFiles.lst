@@ -1,3 +1,10 @@
-C:\Users\Admin\Documents\bechuchi\Projects\KTH\BeehiveMonitoringSystem\server\src\main\java\com\bechuchi\controller\Controller.java
-C:\Users\Admin\Documents\bechuchi\Projects\KTH\BeehiveMonitoringSystem\server\src\main\java\com\bechuchi\controller\HelloController.java
-C:\Users\Admin\Documents\bechuchi\Projects\KTH\BeehiveMonitoringSystem\server\src\main\java\com\bechuchi\ServerApplication.java
+C:\Users\Admin\Documents\bechuchi\Projects\KTH\BeehiveMonitoringSystem\server\src\main\java\com\bechuchi\model\Client.java
+C:\Users\Admin\Documents\bechuchi\Projects\KTH\BeehiveMonitoringSystem\server\src\main\java\com\bechuchi\model\NetworkHandler.java
+C:\Users\Admin\Documents\bechuchi\Projects\KTH\BeehiveMonitoringSystem\server\src\main\java\com\bechuchi\model\sensor\TemperatureHumiditySensor.java
+C:\Users\Admin\Documents\bechuchi\Projects\KTH\BeehiveMonitoringSystem\server\src\main\java\com\bechuchi\startup\Application.java
+C:\Users\Admin\Documents\bechuchi\Projects\KTH\BeehiveMonitoringSystem\server\src\main\java\com\bechuchi\model\IncomingDataPacket.java
+C:\Users\Admin\Documents\bechuchi\Projects\KTH\BeehiveMonitoringSystem\server\src\main\java\com\bechuchi\model\sensor\SensorDataModel.java
+C:\Users\Admin\Documents\bechuchi\Projects\KTH\BeehiveMonitoringSystem\server\src\main\java\com\bechuchi\model\sensor\WeightSensor.java
+C:\Users\Admin\Documents\bechuchi\Projects\KTH\BeehiveMonitoringSystem\server\src\main\java\com\bechuchi\HomeController.java
+C:\Users\Admin\Documents\bechuchi\Projects\KTH\BeehiveMonitoringSystem\server\src\main\java\com\bechuchi\controller\NetworkController.java
+C:\Users\Admin\Documents\bechuchi\Projects\KTH\BeehiveMonitoringSystem\server\src\main\java\com\bechuchi\model\sensor\SensorData.java

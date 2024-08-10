@@ -9,36 +9,61 @@ import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.bechuchi.model.DataService;
 import com.bechuchi.model.IncomingDataPacket;
 import com.bechuchi.model.NetworkHandler;
 
+@Controller
 public class NetworkController {
     private NetworkHandler networkHandler;
+    private String latestJsonData = "";
     private IncomingDataPacket incomingDataPacket;
-    final int PORT = 9090;
+    final int INCOMING_PORT = 9090;
     final InetAddress SERVER_IP_ADDRESS;
     final String CLIENT_IP_ADDRESS = "192.168.137.134";
 
     public NetworkController() throws UnknownHostException, SocketException {
         try {
             SERVER_IP_ADDRESS = InetAddress.getByName("192.168.1.97");
-            this.networkHandler = new NetworkHandler(PORT);
+            // this.networkHandler = new NetworkHandler(INCOMING_PORT);
         } catch (UnknownHostException e) {
             throw e;
         }
     }
 
-    public void listenForIncomingNetworkTraffic() {
-        while (true) {
-            try {
-                DatagramPacket packet = networkHandler.receivePacket();
+    @PostConstruct
+    public void initUdpListener() {
+        new Thread(this::listenForIncomingNetworkTraffic).start();
+    }
+
+    private void listenForIncomingNetworkTraffic() {
+        try (DatagramSocket socket = new DatagramSocket(INCOMING_PORT)) {
+            byte[] buffer = new byte[1024];
+            while (true) {
+                DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+                socket.receive(packet);
+                String receivedData = new String(packet.getData(), 0, packet.getLength());
                 printReceivedData(packet);
-                sendResponse(packet.getAddress(), packet.getPort(), "Message Recieved");
-            } catch (IOException e) {
-                System.out.println("Error receiving packet: " + e.getMessage());
-                continue;
+                synchronized (this) {
+                    latestJsonData = receivedData;
+                }
             }
+        } catch (IOException e) {
+            System.out.println("Error receiving UDP packet: " + e.getMessage());
         }
+    }
+
+    @GetMapping("/data")
+    public String showData(Model model) {
+        model.addAttribute("data", latestJsonData); // Passa den senaste mottagna datan till vyn
+        return "dataView"; // Thymeleaf-vyn som ska rendera datan
     }
 
     public void printReceivedData(DatagramPacket packet) {
@@ -46,7 +71,7 @@ public class NetworkController {
         String incomingDataPacket = new String(packet.getData(), 0, packet.getLength());
 
         System.out.println("######################");
-        System.out.println("Client Message: " + incomingDataPacket + " " + timeStamp);
+        System.out.println("Client Messagee: " + incomingDataPacket + " " + timeStamp);
         System.out.println("######################");
     }
 
