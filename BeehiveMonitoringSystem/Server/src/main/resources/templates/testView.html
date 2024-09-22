@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Honey Production</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            display: flex;
+            justify-content: space-around; /* Centrera och ge utrymme mellan diagrammen */
+            align-items: center; /* Centrera diagrammen vertikalt */
+        }
+        canvas {
+            max-width: 400px;
+            max-height: 300px;
+        }
+    </style>
+</head>
+<body>
+<div style="text-align:center;"><h2>Beehive B42</h2></div>
+<hr>
+<div class="chart-container">
+    <canvas id="myChart" width="400" height="300"></canvas>
+    <canvas id="mySecondChart" width="400" height="300"></canvas>
+</div>
+
+<script>
+    var weights = [5, 10, 20, 30, 40, 45];  // Hårdkodade värden för vänstra diagrammet
+    var pointColors = ['rgba(255, 206, 86, 1)', 'rgba(255, 206, 86, 1)', 'rgba(255, 206, 86, 1)', 'rgba(255, 206, 86, 1)', 'green', 'rgba(255, 206, 86, 1)'];
+    var pointRadius = [3, 3, 3, 3, 5, 3];  // Markera 40 kg med en större grön punkt
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Mars', 'April', 'May', 'June', 'July', 'August'],
+            datasets: [{
+                label: 'Plan for Harvesting (kg)',
+                data: weights,
+                backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                borderColor: 'rgba(255, 206, 86, 1)',
+                borderWidth: 1,
+                pointBackgroundColor: pointColors,
+                pointBorderColor: pointColors,
+                pointRadius: pointRadius
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    min: 0,
+                    max: 50,
+                }
+            }
+        }
+    });
+
+    // Hårdkodade värden för högra diagrammet
+    var abscondingWeights = [6, 9, 15, 21, 21, 21];
+    var pointBackgroundColors = ['rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 0.2)', 'red', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 0.2)'];
+    var pointBorderColors = ['rgba(75, 192, 192, 1)', 'rgba(75, 192, 192, 1)', 'rgba(75, 192, 192, 1)', 'red', 'rgba(75, 192, 192, 1)', 'rgba(75, 192, 192, 1)'];
+    var abscondingPointRadius = [3, 3, 3, 5, 3, 3];  // Storleken på de röda punkterna anges till 5, övriga till 3
+
+    var ctx2 = document.getElementById('mySecondChart').getContext('2d');
+    var mySecondChart = new Chart(ctx2, {
+        type: 'line',
+        data: {
+            labels: ['Mars', 'April', 'May', 'June', 'July', 'August'],
+            datasets: [{
+                label: 'Illustration of Absconding (kg)',
+                data: abscondingWeights,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+                pointBackgroundColor: pointBackgroundColors, // Använd arrayen för bakgrundsfärger
+                pointBorderColor: pointBorderColors, // Använd arrayen för kantfärger
+                pointRadius: abscondingPointRadius
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    min: 0,
+                    max: 50,
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

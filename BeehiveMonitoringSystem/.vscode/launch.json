@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SimulatorProgram",
+            "request": "launch",
+            "mainClass": "SimulatorProgram",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "ServerProgram",
+            "request": "launch",
+            "mainClass": "com.bechuchi.startup.ServerProgram",
+            "projectName": "server"
+        },
+        {
+            "type": "java",
+            "name": "Program",
+            "request": "launch",
+            "mainClass": "Program",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "Application",
             "request": "launch",
             "mainClass": "com.bechuchi.startup.Application",

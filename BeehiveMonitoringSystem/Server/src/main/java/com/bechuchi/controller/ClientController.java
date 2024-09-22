@@ -5,7 +5,6 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
-import java.net.UnknownHostException;
 import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,44 +15,51 @@ import com.bechuchi.model.HelperFunctions;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
-public class NetworkController {
+public class ClientController {
     private HelperFunctions help = new HelperFunctions();
     private volatile String latestJsonData = "";
-    final int CLIENT_PORT = 9090;
-    final InetAddress SERVER_IP_ADDRESS;
-    final InetAddress CLIENT_IP_ADDRESS;
+    final int SERVER_PORT = 9090; // Lyssnar på samma port för alla klienter
 
-    public NetworkController() throws UnknownHostException, SocketException {
-        try {
-            SERVER_IP_ADDRESS = InetAddress.getByName("192.168.137.1");
-            CLIENT_IP_ADDRESS = InetAddress.getByName("192.168.137.100");
-        } catch (UnknownHostException e) {
-            throw e;
-        }
+    @PostConstruct
+    public void initUdpListener() {
+        new Thread(this::listenForIncomingNetworkTraffic).start();
     }
 
-    /*
-     * @PostConstruct
-     * public void initUdpListener() {
-     * new Thread(this::listenForIncomingNetworkTraffic).start();
-     * }
-     */
-
     private void listenForIncomingNetworkTraffic() {
-        try (DatagramSocket socket = new DatagramSocket(CLIENT_PORT)) {
+        try (DatagramSocket socket = new DatagramSocket(SERVER_PORT)) {
             byte[] buffer = new byte[1024];
+
             while (true) {
                 DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
                 socket.receive(packet);
-                String receivedData = new String(packet.getData(), 0, packet.getLength());
-                help.printReceivedData(packet);
-                sendResponse(CLIENT_IP_ADDRESS, CLIENT_PORT, "Message Acknowledged");
-                synchronized (this) {
-                    latestJsonData = receivedData;
-                }
+                // Skapa en tråd för att hantera klientens meddelande
+                new Thread(() -> handleClientMessage(packet)).start();
             }
         } catch (IOException e) {
             System.out.println("Error receiving UDP packet: " + e.getMessage());
+        }
+    }
+
+    private void handleClientMessage(DatagramPacket packet) {
+        try {
+            // Läs meddelandet från klienten
+            String receivedData = new String(packet.getData(), 0, packet.getLength());
+            System.out.println("Client Controller");
+            help.printReceivedData(packet);
+
+            // Hämta klientens IP-adress och port
+            InetAddress clientAddress = packet.getAddress();
+            int clientPort = packet.getPort();
+
+            // Skicka svar tillbaka till klienten
+            sendResponse(clientAddress, clientPort, "Message Acknowledged");
+
+            // Uppdatera den senaste mottagna datan
+            synchronized (this) {
+                latestJsonData = receivedData;
+            }
+        } catch (Exception e) {
+            System.out.println("Error handling client message: " + e.getMessage());
         }
     }
 
@@ -75,8 +81,6 @@ public class NetworkController {
 
     @GetMapping("/test")
     public String showTestData(Model model) {
-        // Inget behov att lägga till något i modellen eftersom all data är hårdkodad i
-        // HTML
         return "testView"; // Säkerställ att "dataView.html" har all nödvändig hårdkodad data
     }
 
