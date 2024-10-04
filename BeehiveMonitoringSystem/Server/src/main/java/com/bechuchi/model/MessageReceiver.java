@@ -1,8 +1,10 @@
 package com.bechuchi.model;
 
+import java.util.Random;
 import java.net.DatagramPacket;
+import java.net.InetAddress;
 
-import com.bechuchi.controller.ClientDataController;
+import org.springframework.stereotype.Component;
 import com.bechuchi.model.DTO.ClientMessageDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -12,25 +14,30 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * Tar emot och konverterar rådata till ett ClientMessage-objekt:
 Denna klass ansvarar för att ta emot datan från klienterna och omvandla den till ett objekt av typen ClientMessage.
  */
+@Component
 public class MessageReceiver {
 
-    public ClientMessage receiveMessage(DatagramPacket packet) {
+    public ClientMessage formatClientMessage(DatagramPacket inputPacket) {
 
         try {
             // Skapa en ObjectMapper (Jackson JSON parser)
             ObjectMapper objectMapper = new ObjectMapper();
 
             // Få ut JSON-strängen från paketet
-            String messageData = new String(packet.getData(), 0, packet.getLength());
+            String messageData = new String(inputPacket.getData(), 0, inputPacket.getLength());
 
             // Omvandla JSON-strängen till ett ClientMessageDTO-objekt
             ClientMessageDTO dto = objectMapper.readValue(messageData, ClientMessageDTO.class);
 
-            // Hantera viktvärden som en sträng och konvertera till double[]
             double[] weightValues = parseWeights(dto.getWeightValues());
 
+            String MACaddress = "00-B0-D0-63-C2-26";
+            InetAddress IPaddress = inputPacket.getAddress();
+            int port = inputPacket.getPort();
+
             // Skapa och returnera ett ClientMessage-objekt från DTO:n
-            return new ClientMessage(dto.getMACaddress(), dto.getIPaddress(), dto.getPacketId(), weightValues);
+            return new ClientMessage(MACaddress, IPaddress.getHostAddress(), port, dto.getPacketID(),
+                    weightValues);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -39,7 +46,6 @@ public class MessageReceiver {
     }
 
     private double[] parseWeights(String weightValues) {
-        // Dela upp strängen baserat på kommatecken
         String[] weightStrings = weightValues.split(",");
         double[] weights = new double[weightStrings.length];
 
@@ -49,5 +55,9 @@ public class MessageReceiver {
         }
 
         return weights;
+    }
+
+    public void logMessage() {
+
     }
 }

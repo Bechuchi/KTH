@@ -6,8 +6,8 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages = { "com.bechuchi.controller", "com.bechuchi.model", "com.bechuchi.startup" })
-public class ServerProgram {
+public class LaptopProgram {
     public static void main(String[] args) {
-        SpringApplication.run(ServerProgram.class, args);
+        SpringApplication.run(LaptopProgram.class, args);
     }
 }

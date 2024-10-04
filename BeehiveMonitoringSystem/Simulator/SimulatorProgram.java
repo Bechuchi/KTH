@@ -1,8 +1,3 @@
-/*
- * Ansvarar för att starta flera klienter.
-   Huvudklassen som initierar och startar flera klienter, en per tråd.
-   Startar flera simulerade klienter:
- */
 public class SimulatorProgram {
     public static void main(String[] args) {
         try {

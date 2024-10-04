@@ -22,7 +22,6 @@ public class BeehiveViewModel {
         return weightValues;
     }
 
-    // Lägg till en metod för att returnera vikter som en sträng för visning
     public String getWeightValuesAsString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < weightValues.length; i++) {

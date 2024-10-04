@@ -1,16 +1,9 @@
-/*
- * Ansvarar för att simulera varje klient.
-Denna klass representerar varje individuell klient och hanterar kommunikation via UDP.
-Den använder MessageCreator för att generera meddelanden och skickar dessa till servern.
-Simulerar en klient som skickar meddelanden till servern
- */
-
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 public class ClientSimulator implements Runnable {
-    private int clientID;
+    private final int clientID;
 
     public ClientSimulator(int clientID) {
         this.clientID = clientID;
@@ -19,20 +12,31 @@ public class ClientSimulator implements Runnable {
     @Override
     public void run() {
         try {
-            DatagramSocket socket = new DatagramSocket();
+            // Skapa en socket för att skicka och ta emot UDP-paket
+            DatagramSocket clientSocket = new DatagramSocket();
             InetAddress serverAddress = InetAddress.getByName("192.168.137.1"); // Serverns IP-adress
 
-            // Skapa och skicka meddelande
+            // Skapa meddelande att skicka till servern
             String message = MessageCreator.createMessage(clientID);
-            byte[] buffer = message.getBytes();
+            byte[] sendData = message.getBytes();
 
-            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, serverAddress, 9090);
-            socket.send(packet);
+            // Skicka meddelandet till servern
+            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, serverAddress, 9090);
+            clientSocket.send(sendPacket);
+            System.out.println("Client " + clientID + " sent: \t" + message);
 
-            System.out.println("Client " + clientID + " sent: " + message + '\n');
+            // Skapa en buffer för att ta emot svar från servern
+            byte[] receiveBuffer = new byte[1024];
+            DatagramPacket receivePacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
 
-            Thread.sleep(500); // Liten fördröjning mellan meddelanden
-            socket.close();
+            // Vänta på svar från servern
+            clientSocket.receive(receivePacket); // Blockerande anrop, väntar på serverns svar
+            String response = new String(receivePacket.getData(), 0, receivePacket.getLength());
+            System.out.println("Client " + clientID + " received response: \t" + response);
+            System.out.println();
+
+            // Stäng socket efter att svar har mottagits
+            clientSocket.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

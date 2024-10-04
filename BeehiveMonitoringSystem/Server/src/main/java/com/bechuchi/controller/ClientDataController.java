@@ -11,9 +11,6 @@ import java.util.ArrayList;
 
 @Controller
 public class ClientDataController {
-
-    // Lista för att hålla klientmeddelanden
-    private List<ClientMessage> clientMessages = new ArrayList<>();
     private List<BeehiveViewModel> beehiveDataList = new ArrayList<>();
 
     // Endpoint för att visa bikupdata
@@ -21,31 +18,15 @@ public class ClientDataController {
     public String showClientData(Model model) {
         // Skicka endast visningsmodeller till gränssnittet
         model.addAttribute("beehiveDataList", beehiveDataList);
-        return "clientDataView"; // Namnet på Thymeleaf-vyn
+
+        return "clientDataView";
     }
 
     // Metod för att lägga till nya meddelanden
-    public void addClientMessage(ClientMessage clientMessage) {
+    public void addClientMessage(ClientMessage beehive) {
         // Omvandla ClientMessage till BeehiveViewModel
-        BeehiveViewModel viewModel = new BeehiveViewModel(clientMessage.getMACaddress(),
-                clientMessage.getWeightValues());
+        BeehiveViewModel viewModel = new BeehiveViewModel(beehive.getMACaddress(),
+                beehive.getWeightValues());
         beehiveDataList.add(viewModel);
     }
-
-    // Endpoint för att visa klientdata
-    /*
-     * @GetMapping("/client-data")
-     * public String showClientData(Model model) {
-     * // Lägg till klientmeddelanden i modellen som ska visas på sidan
-     * model.addAttribute("clientMessages", clientMessages);
-     * return "clientDataView"; // Namnet på Thymeleaf-vyn
-     * }
-     */
-
-    // Metod för att lägga till nya meddelanden
-    /*
-     * public void addClientMessage(ClientMessage message) {
-     * clientMessages.add(message);
-     * }
-     */
 }

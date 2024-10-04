@@ -4,44 +4,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /*
  * användas för att hantera all information som kommer från klienter och nätverket.
+ * DTO (Data Transfer Object) är designat för att hantera data som kommer från klienten via JSON, och därför behöver du inte ha fälten för IP-adress och MAC-adress i DTO
+om dessa inte skickas från klienten.
  */
 public class ClientMessageDTO {
 
-    @JsonProperty("MACaddress")
-    private String MACaddress;
-
-    @JsonProperty("IPaddress")
-    private String IPaddress;
-
     @JsonProperty("PacketID")
-    private int packetId;
+    private int packetID;
 
     @JsonProperty("Weight")
     private String weightValues;
 
     // Getter och setter metoder
-    public String getMACaddress() {
-        return MACaddress;
+    public int getPacketID() {
+        return packetID;
     }
 
-    public void setMACAddress(String MACaddress) {
-        this.MACaddress = MACaddress;
-    }
-
-    public String getIPaddress() {
-        return IPaddress;
-    }
-
-    public void setIPaddress(String IPaddress) {
-        this.IPaddress = IPaddress;
-    }
-
-    public int getPacketId() {
-        return packetId;
-    }
-
-    public void setPacketId(int packetId) {
-        this.packetId = packetId;
+    public void setPacketID(int packetID) {
+        this.packetID = packetID;
     }
 
     public String getWeightValues() {

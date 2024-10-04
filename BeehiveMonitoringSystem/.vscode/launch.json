@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "DHCPServer",
+            "request": "launch",
+            "mainClass": "DHCPServer",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "UDPClient",
+            "request": "launch",
+            "mainClass": "UDPClient",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "LaptopProgram",
+            "request": "launch",
+            "mainClass": "com.bechuchi.startup.LaptopProgram",
+            "projectName": "server"
+        },
+        {
+            "type": "java",
             "name": "SimulatorProgram",
             "request": "launch",
             "mainClass": "SimulatorProgram",
