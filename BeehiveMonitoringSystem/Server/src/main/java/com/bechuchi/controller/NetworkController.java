@@ -16,7 +16,7 @@ import com.bechuchi.model.MessageReceiver;
 public class NetworkController {
     private final MessageReceiver receiver;
     private final MessageProcessor processor;
-    final int SERVER_PORT = 9090;
+    final int SERVER_PORT = 8080;
 
     @Autowired
     public NetworkController(MessageReceiver receiver, MessageProcessor processor) {
