@@ -1,9 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bikupdata</title>
+    <meta charset="UTF-8">
+</head>
 <body>
-
-<h1>My First Heading</h1>
-<p>My first paragraph. Test</p>
-
+    <h1>Bikupdata</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>MAC Address</th>
+                <th>Vikter</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="beehive : ${beehiveData}">
+                <td th:text="${beehive.macAddress}"></td>
+                <td th:text="${beehive.weightValues}"></td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>

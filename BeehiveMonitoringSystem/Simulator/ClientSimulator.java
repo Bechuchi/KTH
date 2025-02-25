@@ -1,6 +1,7 @@
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ClientSimulator implements Runnable {
     private final int clientID;
@@ -14,14 +15,14 @@ public class ClientSimulator implements Runnable {
         try {
             // Skapa en socket för att skicka och ta emot UDP-paket
             DatagramSocket clientSocket = new DatagramSocket();
-            InetAddress serverAddress = InetAddress.getByName("192.168.137.1"); // Serverns IP-adress
+            InetAddress serverAddress = InetAddress.getByName("192.168.137.1"); //
 
             // Skapa meddelande att skicka till servern
             String message = MessageCreator.createMessage(clientID);
             byte[] sendData = message.getBytes();
 
             // Skicka meddelandet till servern
-            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, serverAddress, 9090);
+            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, serverAddress, 9091);
             clientSocket.send(sendPacket);
             System.out.println("Client " + clientID + " sent: \t" + message);
 

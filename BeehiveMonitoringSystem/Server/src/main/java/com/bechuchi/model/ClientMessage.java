@@ -1,42 +1,44 @@
 package com.bechuchi.model;
 
-import java.util.Arrays;
-
 public class ClientMessage {
-    private String MACaddress;
-    private String IPaddress;
-    private int port;
-    private int packetID;
+
+    private String ipAddress;
+    private String macAddress;
     private double[] weightValues;
 
-    public ClientMessage(String MACaddress, String IPaddress, int port, int packetID, double[] weightValues) {
-        this.MACaddress = MACaddress;
-        this.IPaddress = IPaddress;
-        this.port = port;
-        this.packetID = packetID;
+    // **Lägg till denna tomma konstruktor**
+    public ClientMessage() {
+    }
+
+    // **Befintlig konstruktor**
+    public ClientMessage(String ipAddress, String macAddress, double[] weightValues) {
+        this.ipAddress = ipAddress;
+        this.macAddress = macAddress;
         this.weightValues = weightValues;
     }
 
-    public String getMACaddress() {
-        return MACaddress;
+    // Getter och Setter metoder
+    public String getIpAddress() {
+        return ipAddress;
     }
 
-    public int getPort() {
-        return port;
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
     }
 
-    public int getPacketID() {
-        return packetID;
+    public String getMacAddress() {
+        return macAddress;
+    }
+
+    public void setMacAddress(String macAddress) {
+        this.macAddress = macAddress;
     }
 
     public double[] getWeightValues() {
         return weightValues;
     }
 
-    @Override
-    public String toString() {
-        return "MAC Address: \t" + MACaddress + '\n' + "IP Address: \t" + IPaddress + '\n' + "PacketID: \t" + packetID
-                + '\n' + "WeightValues: \t"
-                + Arrays.toString(weightValues);
+    public void setWeightValues(double[] weightValues) {
+        this.weightValues = weightValues;
     }
 }

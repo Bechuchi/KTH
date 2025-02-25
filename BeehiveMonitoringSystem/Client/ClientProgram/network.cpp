@@ -4,7 +4,7 @@
 
 const char* ssid = "DESKTOP-JV5DPM1 4709";
 const char* password = "2402v?V3";
-const int serverPort = 9090;
+const int serverPort = 8080;
 const char* serverIP = "192.168.137.1";
 
 void initNetwork(WiFiUDP udp){

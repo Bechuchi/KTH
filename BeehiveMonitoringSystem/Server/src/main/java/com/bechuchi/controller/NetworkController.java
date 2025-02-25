@@ -8,20 +8,27 @@ import java.net.InetAddress;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.bechuchi.model.ClientMessage;
-import com.bechuchi.model.MessageProcessor;
-import com.bechuchi.model.MessageReceiver;
 
+import com.bechuchi.model.ClientMessage;
+import com.bechuchi.service.BeehiveDataService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+/*
+ * This controller is responsioble for managing the network traffic.
+ * It listens for incoming data, sends a reply to the recipient and
+ * forwards the data to an internal component in the Laptop Application
+ * responsible for processing the information.
+ * 
+ * The recievement of data is done with UDP.
+ */
 @Component
 public class NetworkController {
-    private final MessageReceiver receiver;
-    private final MessageProcessor processor;
-    final int SERVER_PORT = 8080;
+    private final BeehiveDataService dataService;
+    final int SERVER_PORT = 9091;
 
     @Autowired
-    public NetworkController(MessageReceiver receiver, MessageProcessor processor) {
-        this.receiver = receiver;
-        this.processor = processor;
+    public NetworkController(BeehiveDataService dataService) {
+        this.dataService = dataService;
     }
 
     @PostConstruct
@@ -41,8 +48,14 @@ public class NetworkController {
                     InetAddress clientAddress = packet.getAddress();
                     int clientPort = packet.getPort();
 
-                    ClientMessage message = receiver.formatClientMessage(packet);
-                    processor.processMessage(message);
+                    // Konvertera inkommande UDP-paket till en ClientMessage
+                    ClientMessage message = convertPacketToClientMessage(packet);
+                    if (message != null) {
+                        dataService.addClientMessage(message);
+                    }
+
+                    // dataService.addClientMessage(message);
+
                     String ackMessage = "ACK for PacketID";
 
                     sendResponse(clientAddress, clientPort, ackMessage);
@@ -50,6 +63,17 @@ public class NetworkController {
             }
         } catch (IOException e) {
             System.out.println("Error receiving UDP packet: " + e.getMessage());
+        }
+    }
+
+    private ClientMessage convertPacketToClientMessage(DatagramPacket packet) {
+        try {
+            String messageData = new String(packet.getData(), 0, packet.getLength());
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.readValue(messageData, ClientMessage.class);
+        } catch (Exception e) {
+            System.out.println("❌ Fel vid konvertering av meddelande: " + e.getMessage());
+            return null;
         }
     }
 

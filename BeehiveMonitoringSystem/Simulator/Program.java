@@ -1,4 +1,6 @@
-public class SimulatorProgram {
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class Program {
     public static void main(String[] args) {
         try {
             // Skapa flera simulerade klienter

@@ -6,16 +6,22 @@ import java.util.Locale;
  * skapas för att endast innehålla den data som behövs för visning i gränssnittet.
  */
 public class BeehiveViewModel {
-    private String MACaddress;
+    private String ipAddress;
+    private String macAddress;
     private double[] weightValues;
 
-    public BeehiveViewModel(String MACaddress, double[] weightValues) {
-        this.MACaddress = MACaddress;
+    public BeehiveViewModel(String ipAddress, String macAddress, double[] weightValues) {
+        this.ipAddress = ipAddress;
+        this.macAddress = macAddress;
         this.weightValues = weightValues;
     }
 
-    public String getMACaddress() {
-        return MACaddress;
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    public String getMacAddress() {
+        return macAddress;
     }
 
     public double[] getWeightValues() {

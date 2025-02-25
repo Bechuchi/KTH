@@ -21,7 +21,7 @@ char jsonBuffer[1024];
 String outgoingMessage;
 
 void setup() {
-    Serial.begin(9600);
+    Serial.begin(115200);
     delay(2000);
     EEPROM.begin(EEPROM_SIZE); // Allokerar 512 bytes i flashminnet för EEPROM-användning
     

@@ -16,87 +16,17 @@
     </style>
 </head>
 <body>
-<div style="text-align:center;"><h2>Beehive [[${beehiveData.ipAddress}]]</h2></div>
-<hr>
-<div class="chart-container">
-    <canvas id="myChart" width="400" height="300"></canvas>
-    <canvas id="mySecondChart" width="400" height="300"></canvas>
-</div>
-
-
-<script th:inline="javascript">
-    /*<![CDATA[*/
-
-var weights = /*[[${beehiveData.weight}]]*/ '[]';
-var indexFor40kg = weights.indexOf(41);
-
-var pointColors = new Array(weights.length).fill('rgba(255, 206, 86, 1)');  // Standard gul färg för alla punkter
-var pointRadius = new Array(weights.length).fill(3);  // Standardstorlek för alla punkter
-
-if (indexFor40kg !== -1) {
-    pointColors[indexFor40kg] = 'green';  // Sätt färgen till grön för punkten vid 40 kg
-    pointRadius[indexFor40kg] = 5;  // Gör den punkten större
-}
-
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: ['Mars', 'April', 'May', 'June', 'July', 'August'],
-        datasets: [{
-            label: 'Plan for Harvesting (kg)',
-            data: weights,
-            backgroundColor: 'rgba(255, 206, 86, 0.2)',
-            borderColor: 'rgba(255, 206, 86, 1)',
-            borderWidth: 1,
-            pointBackgroundColor: pointColors,
-            pointBorderColor: pointColors,
-            pointRadius: pointRadius
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true,
-                min: 0,
-                max: 50,
-            }
-        }
-    }
-});
-    
-    var hardcodedWeights = [1, 9, 15, 21, 21, 21];
-    var pointBackgroundColors = ['rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 0.2)', 'red', 'rgba(75, 192, 192, 0.2)', 'rgba(75, 192, 192, 0.2)'];
-    var pointBorderColors = ['rgba(75, 192, 192, 1)', 'rgba(75, 192, 192, 1)', 'rgba(75, 192, 192, 1)', 'red', 'rgba(75, 192, 192, 1)', 'rgba(75, 192, 192, 1)'];
-    var pointRadius = [3, 3, 3, 5, 3, 3]; // Storleken på de röda punkterna anges till 5, övriga till 3
-
-    var ctx2 = document.getElementById('mySecondChart').getContext('2d');
-    var mySecondChart = new Chart(ctx2, {
-    type: 'line',
-    data: {
-        labels: ['Mars', 'April', 'May', 'June', 'July', 'August'],
-        datasets: [{
-            label: 'Illustration of Absconding (kg)',
-            data: hardcodedWeights,
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1,
-            pointBackgroundColor: pointBackgroundColors, // Använd arrayen för bakgrundsfärger
-            pointBorderColor: pointBorderColors, // Använd arrayen för kantfärger
-            pointRadius: pointRadius
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true,
-                min: 0,
-                max: 50,
-            }
-        }
-    }
-});
-/*]]>*/
-</script>
+    <table>
+        <tr>
+            <th>IP Address</th>
+            <th>MAC Address</th>
+            <th>Weight Values</th>
+        </tr>
+        <tr th:each="beehive : ${beehiveData}">
+            <td th:text="${beehive.ipAddress}"></td>
+            <td th:text="${beehive.macAddress}"></td>
+            <td th:text="${beehive.getWeightValuesAsString()}"></td>
+        </tr>
+    </table>    
 </body>
 </html>
