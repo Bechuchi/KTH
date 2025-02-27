@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +16,9 @@ import com.bechuchi.service.BeehiveDataService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /*
- * This controller is responsioble for managing the network traffic.
- * It listens for incoming data, sends a reply to the recipient and
- * forwards the data to an internal component in the Laptop Application
- * responsible for processing the information.
- * 
- * The recievement of data is done with UDP.
+ * The NetworkController is responsible for handling network traffic.
+ * It listens for incoming UDP messages from clients (beehive monitoring devices)
+ * and processes the received data. Once a message is received:
  */
 @Component
 public class NetworkController {
@@ -52,9 +51,10 @@ public class NetworkController {
                     ClientMessage message = convertPacketToClientMessage(packet);
                     if (message != null) {
                         dataService.addClientMessage(message);
+                        dataService.addWeightData(Arrays.stream(message.getWeightValues())
+                                .boxed() // Konverterar primitiv double till Double
+                                .collect(Collectors.toList())); // Samlar som en lista
                     }
-
-                    // dataService.addClientMessage(message);
 
                     String ackMessage = "ACK for PacketID";
 

@@ -1,32 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <title>Honey Production</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        .chart-container {
-            display: flex;
-            justify-content: space-around; /* Centrera och ge utrymme mellan diagrammen */
-            align-items: center; /* Centrera diagrammen vertikalt */
-        }
-        canvas {
-            max-width: 400px;
-            max-height: 300px;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beehive Data</title>
 </head>
 <body>
-    <table>
+    <h2>Latest 10 Days of Weight Data</h2>
+    <table border="1">
         <tr>
-            <th>IP Address</th>
-            <th>MAC Address</th>
-            <th>Weight Values</th>
+            <th>Day</th>
+            <th>Weight (kg)</th>
         </tr>
-        <tr th:each="beehive : ${beehiveData}">
-            <td th:text="${beehive.ipAddress}"></td>
-            <td th:text="${beehive.macAddress}"></td>
-            <td th:text="${beehive.getWeightValuesAsString()}"></td>
+        <tr th:each="weight, iterStat : ${weightData}">
+            <td th:text="${iterStat.count}"></td>
+            <td th:text="${weight}"></td>
         </tr>
-    </table>    
+    </table>
 </body>
 </html>

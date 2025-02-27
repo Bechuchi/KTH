@@ -10,6 +10,11 @@ import com.bechuchi.service.BeehiveDataService;
 
 import java.util.List;
 
+/*
+ * The PresentationController is responsible for handling user interactions and
+ * managing how data is presented in the UI. It retrieves processed data from
+ * BeehiveDataService and sends it to the View.
+ */
 @Controller
 public class PresentationController {
     private final BeehiveDataService dataService;
@@ -29,8 +34,12 @@ public class PresentationController {
     // Endpoint för att visa bikupdata
     @GetMapping("/data")
     public String showClientData(Model model) {
-        List<BeehiveViewModel> beehiveData = dataService.getAllBeehiveData();
-        model.addAttribute("beehiveData", beehiveData);
+        List<Double> weightData = dataService.getWeightData();
+        model.addAttribute("weightData", weightData);
+        /*
+         * List<BeehiveViewModel> beehiveData = dataService.getAllBeehiveData();
+         * model.addAttribute("beehiveData", beehiveData);
+         */
 
         return "dataView";
     }
