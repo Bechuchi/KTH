@@ -72,7 +72,7 @@ public class BeehiveDataService {
         if (beehiveList != null && !beehiveList.isEmpty()) {
             // Uppdatera den existerande bikupan istället för att skapa en ny
             BeehiveViewModel beehive = beehiveList.get(0);
-            beehive.getWeightValues().addAll(newWeights);
+            // beehive.getWeightValues().addAll(newWeights);
             System.out.println("Inter viktlista: " + beehive.getWeightValues());
         } else {
             System.out.println("⚠️ Ingen bikupa hittades för MAC: " + macAddress);

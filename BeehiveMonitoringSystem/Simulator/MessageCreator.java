@@ -18,6 +18,41 @@ public class MessageCreator {
     // Skapar ett meddelande med 10 viktvärden och ett unikt PaketID
 
     public static String createMessage(int clientID) {
+        List<Double> weightValues;
+
+        // Klient 5 = "Slutat producera" (0 → 20 kg och avstannar)
+        if (clientID == 5) {
+            weightValues = generateStableWeights(20);
+        }
+        // Klienter 1-4 = "Optimal bikupa" (0 → 60 kg)
+        else {
+            weightValues = generateIncreasingWeights(60);
+        }
+
+        String IPAddress = "192.168.137." + clientID;
+        String MACAddress = "1B:B2:16:8" + clientID + ":37:Z";
+        int packetId = random.nextInt(10000);
+
+        // Skapa JSON-struktur
+        StringBuilder message = new StringBuilder();
+        message.append("{");
+        message.append("\"ipAddress\":\"").append(IPAddress).append("\", ");
+        message.append("\"macAddress\":\"").append(MACAddress).append("\", ");
+        message.append("\"weightValues\": [");
+
+        for (int i = 0; i < weightValues.size(); i++) {
+            message.append(weightValues.get(i));
+            if (i < weightValues.size() - 1) {
+                message.append(", ");
+            }
+        }
+
+        message.append("]}");
+
+        return message.toString();
+    }
+
+    public static String createMessageOld(int clientID) {
         List<Double> weightValues = generateWeightValues();
         String IPAddress = "192.168.137." + clientID; // Gör IP-adressen unik
         String MACAddress = "1B:B2:16:8" + clientID + ":37:Z"; // Unik MAC-adress
@@ -44,10 +79,27 @@ public class MessageCreator {
         return message.toString();
     }
 
-    private static List<Double> generateWeightValues() {
+    // Viktökning från 0 kg till maxVikt (för optimal bikupa)
+    private static List<Double> generateIncreasingWeights(double maxVikt) {
         List<Double> weights = new ArrayList<>();
+        double currentWeight = 0;
         for (int i = 0; i < 10; i++) {
-            weights.add(10 + (50 - 10) * random.nextDouble()); // Vikter mellan 10 och 50
+            currentWeight += (maxVikt / 10) + random.nextDouble(); // Ökar stadigt
+            weights.add(currentWeight);
+        }
+        return weights;
+    }
+
+    // Stabil vikt efter en viss ökning (för bikupa som slutat producera)
+    private static List<Double> generateStableWeights(double maxVikt) {
+        List<Double> weights = new ArrayList<>();
+        double currentWeight = 0;
+        for (int i = 0; i < 5; i++) { // Ökar till maxVikt
+            currentWeight += (maxVikt / 5) + random.nextDouble();
+            weights.add(currentWeight);
+        }
+        for (int i = 5; i < 10; i++) { // Stannar på maxVikt
+            weights.add(maxVikt);
         }
         return weights;
     }
