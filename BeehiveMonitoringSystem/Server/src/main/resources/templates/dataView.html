@@ -1,21 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beehive Data</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
     <h2>Latest 10 Days of Weight Data</h2>
+    
     <table border="1">
-        <tr>
-            <th>Day</th>
-            <th>Weight (kg)</th>
+        <!-- Loopa över bikuporna -->
+        <tr th:each="entry : ${beehiveData}">
+            <tr th:each="entry, iterStat : ${beehiveData}" th:with="currentBeehive=${entry.value[0]}">
+                <td th:text="${iterStat.count}"></td>
+                <td><strong>Beehive:</strong> <span th:text="${entry.key}"></span></td>
+                <td th:text="${currentBeehive.weightValues}"></td>
+            </tr>
         </tr>
-        <tr th:each="weight, iterStat : ${weightData}">
-            <td th:text="${iterStat.count}"></td>
-            <td th:text="${weight}"></td>
-        </tr>
-    </table>
+    </table>    
+
 </body>
 </html>

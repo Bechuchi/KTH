@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import com.bechuchi.model.ClientMessage;
 import com.bechuchi.service.BeehiveDataService;
+import com.bechuchi.service.BeehiveDataStorage;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /*
@@ -23,11 +26,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Component
 public class NetworkController {
     private final BeehiveDataService dataService;
+    private final BeehiveDataStorage dataStorage;
     final int SERVER_PORT = 9091;
 
     @Autowired
-    public NetworkController(BeehiveDataService dataService) {
+    public NetworkController(BeehiveDataService dataService, BeehiveDataStorage dataStorage) {
         this.dataService = dataService;
+        this.dataStorage = dataStorage;
     }
 
     @PostConstruct
@@ -47,13 +52,11 @@ public class NetworkController {
                     InetAddress clientAddress = packet.getAddress();
                     int clientPort = packet.getPort();
 
-                    // Konvertera inkommande UDP-paket till en ClientMessage
-                    ClientMessage message = convertPacketToClientMessage(packet);
-                    if (message != null) {
-                        dataService.addClientMessage(message);
-                        dataService.addWeightData(Arrays.stream(message.getWeightValues())
-                                .boxed() // Konverterar primitiv double till Double
-                                .collect(Collectors.toList())); // Samlar som en lista
+                    ClientMessage currentBeehive = convertPacketToClientMessage(packet);
+
+                    if (currentBeehive != null) {
+                        dataService.processIncomingMessage(currentBeehive);
+                        dataService.storeWeightData(currentBeehive.getMacAddress(), currentBeehive.getWeightValues());
                     }
 
                     String ackMessage = "ACK for PacketID";

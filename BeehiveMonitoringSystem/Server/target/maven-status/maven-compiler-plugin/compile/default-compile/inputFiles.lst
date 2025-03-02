@@ -1,12 +1,7 @@
-C:\Users\Admin\Documents\school\KTH\BeehiveMonitoringSystem\Server\src\main\java\com\bechuchi\model\Client.java
 C:\Users\Admin\Documents\school\KTH\BeehiveMonitoringSystem\Server\src\main\java\com\bechuchi\service\BeehiveDataService.java
-C:\Users\Admin\Documents\school\KTH\BeehiveMonitoringSystem\Server\src\main\java\com\bechuchi\model\Message.java
 C:\Users\Admin\Documents\school\KTH\BeehiveMonitoringSystem\Server\src\main\java\com\bechuchi\controller\NetworkController.java
-C:\Users\Admin\Documents\school\KTH\BeehiveMonitoringSystem\Server\src\main\java\com\bechuchi\model\WeightData.java
+C:\Users\Admin\Documents\school\KTH\BeehiveMonitoringSystem\Server\src\main\java\com\bechuchi\service\BeehiveDataStorage.java
 C:\Users\Admin\Documents\school\KTH\BeehiveMonitoringSystem\Server\src\main\java\com\bechuchi\controller\PresentationController.java
 C:\Users\Admin\Documents\school\KTH\BeehiveMonitoringSystem\Server\src\main\java\com\bechuchi\model\ViewModel\BeehiveViewModel.java
-C:\Users\Admin\Documents\school\KTH\BeehiveMonitoringSystem\Server\src\main\java\com\bechuchi\model\IncomingDataPackage.java
 C:\Users\Admin\Documents\school\KTH\BeehiveMonitoringSystem\Server\src\main\java\com\bechuchi\startup\Application.java
-C:\Users\Admin\Documents\school\KTH\BeehiveMonitoringSystem\Server\src\main\java\com\bechuchi\model\SensorData.java
-C:\Users\Admin\Documents\school\KTH\BeehiveMonitoringSystem\Server\src\main\java\com\bechuchi\controller\TestController.java
 C:\Users\Admin\Documents\school\KTH\BeehiveMonitoringSystem\Server\src\main\java\com\bechuchi\model\ClientMessage.java

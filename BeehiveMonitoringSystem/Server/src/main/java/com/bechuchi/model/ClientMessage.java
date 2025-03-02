@@ -1,20 +1,23 @@
 package com.bechuchi.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ClientMessage {
 
     private String ipAddress;
     private String macAddress;
-    private double[] weightValues;
+    private List<Double> weightValues;
 
     // **Lägg till denna tomma konstruktor**
     public ClientMessage() {
     }
 
     // **Befintlig konstruktor**
-    public ClientMessage(String ipAddress, String macAddress, double[] weightValues) {
+    public ClientMessage(String ipAddress, String macAddress, List<Double> weightValues) {
         this.ipAddress = ipAddress;
         this.macAddress = macAddress;
-        this.weightValues = weightValues;
+        this.weightValues = (weightValues != null) ? weightValues : new ArrayList<>(); // Undvik null
     }
 
     // Getter och Setter metoder
@@ -34,11 +37,11 @@ public class ClientMessage {
         this.macAddress = macAddress;
     }
 
-    public double[] getWeightValues() {
+    public List<Double> getWeightValues() {
         return weightValues;
     }
 
-    public void setWeightValues(double[] weightValues) {
+    public void setWeightValues(List<Double> weightValues) {
         this.weightValues = weightValues;
     }
 }

@@ -1,6 +1,10 @@
 package com.bechuchi.model.ViewModel;
 
-import java.util.Locale;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 /*
  * skapas för att endast innehålla den data som behövs för visning i gränssnittet.
@@ -8,12 +12,13 @@ import java.util.Locale;
 public class BeehiveViewModel {
     private String ipAddress;
     private String macAddress;
-    private double[] weightValues;
+    private List<Double> weightValues;
 
-    public BeehiveViewModel(String ipAddress, String macAddress, double[] weightValues) {
+    public BeehiveViewModel(String ipAddress, String macAddress, List<Double> weightValues) {
         this.ipAddress = ipAddress;
         this.macAddress = macAddress;
-        this.weightValues = weightValues;
+        this.weightValues = (weightValues != null) ? new ArrayList<>(weightValues) : new ArrayList<>();
+        System.out.println("Skapar BeehiveViewModel, weightValues: " + this.weightValues);
     }
 
     public String getIpAddress() {
@@ -24,18 +29,15 @@ public class BeehiveViewModel {
         return macAddress;
     }
 
-    public double[] getWeightValues() {
+    public List<Double> getWeightValues() {
         return weightValues;
     }
 
-    public String getWeightValuesAsString() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < weightValues.length; i++) {
-            sb.append(String.format(Locale.US, "%.2f", weightValues[i]));
-            if (i < weightValues.length - 1) {
-                sb.append(", ");
-            }
-        }
-        return sb.toString();
+    @Override
+    public String toString() {
+        return "BeehiveViewModel{" +
+                "macAddress='" + macAddress + '\'' +
+                ", weightValues=" + weightValues +
+                '}';
     }
 }

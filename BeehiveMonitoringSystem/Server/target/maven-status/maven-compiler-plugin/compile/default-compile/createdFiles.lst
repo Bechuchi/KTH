@@ -1,12 +1,7 @@
 com\bechuchi\model\ClientMessage.class
-com\bechuchi\model\SensorData.class
 com\bechuchi\controller\PresentationController.class
 com\bechuchi\controller\NetworkController.class
 com\bechuchi\service\BeehiveDataService.class
 com\bechuchi\model\ViewModel\BeehiveViewModel.class
-com\bechuchi\model\WeightData.class
 com\bechuchi\startup\Application.class
-com\bechuchi\model\IncomingDataPackage.class
-com\bechuchi\model\Client.class
-com\bechuchi\model\Message.class
-com\bechuchi\controller\TestController.class
+com\bechuchi\service\BeehiveDataStorage.class
