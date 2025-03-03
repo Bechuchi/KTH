@@ -30,7 +30,14 @@
             <td th:text="${iterStat.count}"></td>
             <td><strong>Bikupa:</strong> <span th:text="${entry.key}"></span></td>
             
-            <!-- Visa linjediagram -->
+            <!-- Kolumn: Lista över viktvärden -->
+            <td>
+                <ul>
+                    <li th:each="weight : ${entry.value[0].weightValues}" th:text="${weight}"></li>
+                </ul>
+            </td>
+
+            <!-- Kolumn: Linjediagram -->
             <td>
                 <canvas th:id="'chart-' + ${iterStat.count}" width="200" height="100"></canvas>
                 
