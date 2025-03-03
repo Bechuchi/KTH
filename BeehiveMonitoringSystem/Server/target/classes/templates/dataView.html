@@ -4,52 +4,86 @@
     <title>Beehive Data</title>
     <style>
         table {
-            width: 50%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            width: 80%; /* Justera bredden så att den inte fyller hela skärmen */
+            max-width: 1000px; /* Sätter en maxbredd så den inte sprids ut */
+            border: 4px solid black; /* Tjock ytterram */
+            margin: auto; /* Centrerar tabellen */
         }
+    
         th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
+            border: 2px solid black; /* Tunnare ramar för rader och kolumner */
+            padding: 4px; /* Mindre padding för en mer kompakt design */
+            text-align: center;
+            vertical-align: middle;
         }
+    
         th {
             background-color: #f2f2f2;
+            font-weight: bold;
+            border: 4px solid black; /* Tjockare ram för rubrikraden */
+        }
+    
+        td:first-child {
+            width: 50px; /* Smalare ID-kolumn */
+        }
+    
+        td:nth-child(2) {
+            width: 200px; /* Begränsar bredden på MAC-adresskolumnen */
+        }
+    
+        td:nth-child(3) {
+            width: 250px; /* Viktvärden */
+            text-align: left;
+        }
+    
+        td:nth-child(4) {
+            width: 250px; /* Begränsar diagramkolumnens storlek */
+        }
+    
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style-position: inside; /* Gör listan mer kompakt */
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <h2>Latest 10 Days of Weight Data</h2>
+    <table>
+        <!-- Rubrikrad -->
+        <tr>
+            <th>ID</th>
+            <th>Bikupa (MAC Address)</th>
+            <th>Weight Values</th>
+            <th>Chart</th>
+        </tr>
     
-    <table border="1">
         <!-- Loopa över bikuporna -->
-        <tr th:each="entry, iterStat : ${beehiveData}" 
-            th:with="currentBeehive=${entry.value[0]}">
-            
+        <tr th:each="entry, iterStat : ${beehiveData}">
             <td th:text="${iterStat.count}"></td>
-            <td><strong>Bikupa:</strong> <span th:text="${entry.key}"></span></td>
-            
-            <!-- Kolumn: Lista över viktvärden -->
+            <td><strong><span th:text="${entry.key}"></span></strong></td>
+    
+            <!-- Lista över viktvärden -->
             <td>
                 <ul>
                     <li th:each="weight : ${entry.value[0].weightValues}" th:text="${weight}"></li>
                 </ul>
             </td>
-
-            <!-- Kolumn: Linjediagram -->
+    
+            <!-- Linjediagram -->
             <td>
-                <canvas th:id="'chart-' + ${iterStat.count}" width="200" height="100"></canvas>
-                
-                <!-- Konvertera viktvärden till JSON och skicka till JavaScript -->
+                <canvas th:id="'chart-' + ${iterStat.count}" width="180" height="90"></canvas>
                 <script th:inline="javascript">
                     /*<![CDATA[*/
-                    var weightValues = /*[[${currentBeehive.weightValues}]]*/ [];
+                    var weightValues = /*[[${entry.value[0].weightValues}]]*/ [];
                     var ctx = document.getElementById("chart-" + /*[[${iterStat.count}]]*/ "").getContext('2d');
+    
                     new Chart(ctx, {
                         type: 'line',
                         data: {
-                            labels: Array.from({length: weightValues.length}, (_, i) => i + 1), // Skapa etiketter
+                            labels: Array.from({length: weightValues.length}, (_, i) => i + 1),
                             datasets: [{
                                 label: "Weight",
                                 data: weightValues,
@@ -69,7 +103,6 @@
                 </script>
             </td>
         </tr>
-    </table>    
-
+    </table>
 </body>
 </html>
