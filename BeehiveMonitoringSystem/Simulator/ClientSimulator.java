@@ -22,7 +22,7 @@ public class ClientSimulator implements Runnable {
             byte[] sendData = message.getBytes();
 
             // Skicka meddelandet till servern
-            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, serverAddress, 9091);
+            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, serverAddress, 8080);
             clientSocket.send(sendPacket);
             System.out.println("Client " + clientID + " sent: \t" + message);
 

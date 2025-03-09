@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Application",
+            "request": "launch",
+            "mainClass": "com.bechuchi.startup.Application",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "DHCPServer",
             "request": "launch",
             "mainClass": "DHCPServer",
@@ -20,24 +27,10 @@
         },
         {
             "type": "java",
-            "name": "LaptopProgram",
-            "request": "launch",
-            "mainClass": "com.bechuchi.startup.LaptopProgram",
-            "projectName": "server"
-        },
-        {
-            "type": "java",
             "name": "SimulatorProgram",
             "request": "launch",
             "mainClass": "SimulatorProgram",
             "projectName": ""
-        },
-        {
-            "type": "java",
-            "name": "ServerProgram",
-            "request": "launch",
-            "mainClass": "com.bechuchi.startup.ServerProgram",
-            "projectName": "server"
         },
         {
             "type": "java",
@@ -48,38 +41,10 @@
         },
         {
             "type": "java",
-            "name": "Application",
+            "name": "laptopApplication",
             "request": "launch",
-            "mainClass": "com.bechuchi.startup.Application",
-            "projectName": "server"
-        },
-        {
-            "type": "java",
-            "name": "Application",
-            "request": "launch",
-            "mainClass": "com.bechuchi.Application",
-            "projectName": "server"
-        },
-        {
-            "type": "java",
-            "name": "ServerApplication",
-            "request": "launch",
-            "mainClass": "com.bechuchi.ServerApplication",
-            "projectName": ""
-        },
-        {
-            "type": "java",
-            "name": "ServerApplication",
-            "request": "launch",
-            "mainClass": "com.bechuchi.ServerApplication",
-            "projectName": "beehive-monitoring-server"
-        },
-        {
-            "type": "java",
-            "name": "Main",
-            "request": "launch",
-            "mainClass": "startup.Main",
-            "projectName": "beehive-monitoring-server"
+            "mainClass": "com.bechuchi.startup.laptopApplication",
+            "projectName": "laptopApplication"
         }
     ]
 }

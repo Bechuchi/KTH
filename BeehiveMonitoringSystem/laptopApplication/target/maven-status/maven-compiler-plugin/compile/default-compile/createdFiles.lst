@@ -1,0 +1,9 @@
+com\bechuchi\model\ClientMessage.class
+com\bechuchi\controller\PresentationController.class
+com\bechuchi\controller\NetworkController.class
+com\bechuchi\service\BeehiveDataService.class
+com\bechuchi\model\ViewModel\BeehiveViewModel.class
+com\bechuchi\service\TestClientService.class
+com\bechuchi\startup\Application.class
+com\bechuchi\service\BeehiveDataStorage.class
+com\bechuchi\controller\TestClientController.class
