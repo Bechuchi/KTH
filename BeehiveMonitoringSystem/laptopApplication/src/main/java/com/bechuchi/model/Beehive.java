@@ -3,18 +3,18 @@ package com.bechuchi.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientMessage {
+public class Beehive {
 
     private String ipAddress;
     private String macAddress;
     private List<Double> weightValues;
+    private int packetID;
 
     // **Lägg till denna tomma konstruktor**
-    public ClientMessage() {
+    public Beehive() {
     }
 
-    // **Befintlig konstruktor**
-    public ClientMessage(String ipAddress, String macAddress, List<Double> weightValues) {
+    public Beehive(String ipAddress, String macAddress, List<Double> weightValues) {
         this.ipAddress = ipAddress;
         this.macAddress = macAddress;
         this.weightValues = (weightValues != null) ? weightValues : new ArrayList<>(); // Undvik null
@@ -43,5 +43,13 @@ public class ClientMessage {
 
     public void setWeightValues(List<Double> weightValues) {
         this.weightValues = weightValues;
+    }
+
+    public int getPacketID() {
+        return packetID;
+    }
+
+    public void setPacketID(int packetID) {
+        this.packetID = packetID;
     }
 }

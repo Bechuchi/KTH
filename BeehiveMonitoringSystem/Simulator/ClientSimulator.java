@@ -14,7 +14,7 @@ public class ClientSimulator implements Runnable {
     public void run() {
         try {
             // Skapa en socket för att skicka och ta emot UDP-paket
-            DatagramSocket clientSocket = new DatagramSocket();
+            DatagramSocket clientSocket = new DatagramSocket(9090);
             InetAddress serverAddress = InetAddress.getByName("192.168.137.1"); //
 
             // Skapa meddelande att skicka till servern

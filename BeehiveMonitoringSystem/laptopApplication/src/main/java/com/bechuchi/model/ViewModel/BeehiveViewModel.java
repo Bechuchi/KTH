@@ -2,9 +2,6 @@ package com.bechuchi.model.ViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 /*
  * skapas för att endast innehålla den data som behövs för visning i gränssnittet.

@@ -9,7 +9,7 @@ public class Program {
 
                 // Starta en ny tråd för varje klient
                 new Thread(new ClientSimulator(clientID)).start();
-                Thread.sleep(1000); // Liten fördröjning mellan varje klient
+                Thread.sleep(3000); // Liten fördröjning mellan varje klient
             }
         } catch (Exception e) {
             e.printStackTrace();

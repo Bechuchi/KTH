@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.bechuchi.model.PacketHandler;
 import com.bechuchi.model.ViewModel.BeehiveViewModel;
-import com.bechuchi.service.BeehiveDataService;
-
 import java.util.List;
 import java.util.Map;
 
@@ -20,39 +19,24 @@ import java.util.Map;
  */
 @Controller
 public class PresentationController {
-    private final BeehiveDataService beehiveDataService;
+    private final PacketHandler packetHandler;
 
     @Autowired
-    public PresentationController(BeehiveDataService beehiveDataService) {
-        this.beehiveDataService = beehiveDataService;
+    public PresentationController(PacketHandler packetHandler) {
+        this.packetHandler = packetHandler;
     }
 
     @GetMapping("/console")
     @ResponseBody
     public String printToConsole() {
-        System.out.println("Hello Again from Spring Boot!");
         return "Check Again console for the message!";
     }
 
     @RequestMapping(value = "/data", method = RequestMethod.GET)
     public String getBeehiveData(Model model) {
-        Map<String, List<BeehiveViewModel>> listOfBeehives = beehiveDataService.getAllBeehiveData();
-        System.out.println("**************************************");
-        System.out.println("PresentationController: getBeehiveData()");
-        System.out.println("returnerad data från getAllBeehiveData(): " + listOfBeehives);
-        System.out.println("**************************************");
-        System.out.println("Data skickas till UI, innehåll: " + listOfBeehives);
-
-        for (Map.Entry<String, List<BeehiveViewModel>> entry : listOfBeehives.entrySet()) {
-            System.out.println("MAC: " + entry.getKey());
-            for (BeehiveViewModel vw : entry.getValue()) {
-                System.out.println("BeehiveViewModel: " + vw);
-                System.out.println("Weight values: " + vw.getWeightValues());
-                System.out.println("WeightValues class: " + vw.getWeightValues().getClass().getName());
-            }
-        }
-
+        Map<String, List<BeehiveViewModel>> listOfBeehives = packetHandler.getAllBeehiveData();
         model.addAttribute("beehiveData", listOfBeehives);
+
         return "dataView";
     }
 }

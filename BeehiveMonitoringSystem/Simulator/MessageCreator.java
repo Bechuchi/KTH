@@ -21,7 +21,7 @@ public class MessageCreator {
         List<Double> weightValues;
 
         // Klient 5 = "Slutat producera" (0 → 20 kg och avstannar)
-        if (clientID == 5) {
+        if (clientID == 3) {
             weightValues = generateStableWeights(20);
         }
         // Klienter 1-4 = "Optimal bikupa" (0 → 60 kg)
@@ -31,11 +31,12 @@ public class MessageCreator {
 
         String IPAddress = "192.168.137." + clientID;
         String MACAddress = "1B:B2:16:8" + clientID + ":37:Z";
-        int packetId = random.nextInt(10000);
+        int packetID = random.nextInt(10000);
 
         // Skapa JSON-struktur
         StringBuilder message = new StringBuilder();
         message.append("{");
+        message.append("\"packetID\":\"").append(packetID).append("\", ");
         message.append("\"ipAddress\":\"").append(IPAddress).append("\", ");
         message.append("\"macAddress\":\"").append(MACAddress).append("\", ");
         message.append("\"weightValues\": [");
@@ -48,33 +49,6 @@ public class MessageCreator {
         }
 
         message.append("]}");
-
-        return message.toString();
-    }
-
-    public static String createMessageOld(int clientID) {
-        List<Double> weightValues = generateWeightValues();
-        String IPAddress = "192.168.137." + clientID; // Gör IP-adressen unik
-        String MACAddress = "1B:B2:16:8" + clientID + ":37:Z"; // Unik MAC-adress
-        int packetId = random.nextInt(10000); // Unikt paket-ID
-
-        // Skapa JSON-struktur som en sträng
-        StringBuilder message = new StringBuilder();
-        message.append("{");
-        message.append("\"ipAddress\": \"").append(IPAddress).append("\", ");
-        message.append("\"macAddress\": \"").append(MACAddress).append("\", ");
-
-        message.append("\"weightValues\": [");
-
-        // Lägg till viktvärden
-        for (int i = 0; i < weightValues.size(); i++) {
-            message.append(weightValues.get(i)); // Korrekt sätt att hämta värden i en lista
-            if (i < weightValues.size() - 1) {
-                message.append(", "); // Komma mellan värdena
-            }
-        }
-
-        message.append("]}"); // Stäng JSON-objektet
 
         return message.toString();
     }

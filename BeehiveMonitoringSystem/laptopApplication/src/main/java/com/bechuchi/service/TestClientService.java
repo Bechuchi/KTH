@@ -9,8 +9,8 @@ import java.util.Random;
 @Service
 public class TestClientService {
 
-    private static final String SERVER_ADDRESS = "127.0.0.1";
-    private static final int SERVER_PORT = 9091; // Använd samma port som servern lyssnar på
+    private static final String LAPTOP_ADDRESS = "127.0.0.1";
+    private static final int LAPTOP_PORT = 8080; // Använd samma port som servern lyssnar på
     private static final Random random = new Random();
 
     public void sendTestMessage(String macAddress) {
@@ -20,8 +20,8 @@ public class TestClientService {
             byte[] data = message.getBytes();
 
             // Skicka UDP-paket till servern
-            InetAddress serverInetAddress = InetAddress.getByName(SERVER_ADDRESS);
-            DatagramPacket packet = new DatagramPacket(data, data.length, serverInetAddress, SERVER_PORT);
+            InetAddress serverInetAddress = InetAddress.getByName(LAPTOP_ADDRESS);
+            DatagramPacket packet = new DatagramPacket(data, data.length, serverInetAddress, LAPTOP_PORT);
             socket.send(packet);
 
             System.out.println("TestClientService sent: " + message);
